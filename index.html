@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento Publination</title>
+<style>
+/* ═══════ PALETA DA MARCA ═══════
+   Pra mudar, edite os valores abaixo:
+   --brand-yellow: amarelo-laranja
+   --brand-orange: laranja médio
+   --brand-pink:   rosa-vermelho (principal)
+   --brand-dark:   preto de contraste
+*/
+:root{
+  --brand-yellow:#F5A623;
+  --brand-orange:#FF7B3A;
+  --brand-pink:#E93E5C;
+  --brand-dark:#1A1A1A;
+  --brand-gradient:linear-gradient(135deg,#F5A623,#E93E5C);
+  --bg-app:#FDF6F0;
+  --text-main:#1A1A1A;
+  --text-muted:#7A6B5F;
+  --border:#EADFD5;
+  --border-soft:#F4EBE2;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',-apple-system,Arial,sans-serif;background:var(--bg-app);color:var(--text-main);font-size:13px;min-height:100vh;}
+
+/* LANDING */
+.landing{min-height:100vh;background:linear-gradient(135deg,#1A1A1A 0%,#2D1A20 60%,#3D1520 100%);color:#fff;padding:60px 24px;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;}
+.landing::before{content:"";position:absolute;top:-20%;right:-10%;width:60%;height:60%;background:radial-gradient(circle,rgba(233,62,92,.25),transparent 70%);pointer-events:none;}
+.landing::after{content:"";position:absolute;bottom:-20%;left:-10%;width:60%;height:60%;background:radial-gradient(circle,rgba(245,166,35,.2),transparent 70%);pointer-events:none;}
+.landing > *{position:relative;z-index:1;}
+.landing h1{font-size:34px;font-weight:300;letter-spacing:-.02em;margin-bottom:8px;text-align:center;}
+.landing h1 b{font-weight:700;background:var(--brand-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.landing .tagline{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:50px;text-align:center;}
+.hubs-grid{display:grid;grid-template-columns:repeat(3,minmax(260px,320px));gap:16px;margin-bottom:40px;}
+@media(max-width:900px){.hubs-grid{grid-template-columns:1fr;}}
+.hub-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:28px 24px;cursor:pointer;transition:.2s;backdrop-filter:blur(10px);}
+.hub-card:hover{background:rgba(255,255,255,.12);border-color:rgba(245,166,35,.5);transform:translateY(-3px);}
+.hub-card .icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;margin-bottom:18px;color:#1A1A1A;}
+.hub-card h2{font-size:18px;font-weight:600;margin-bottom:14px;}
+.hub-card .sub{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.5;}
+.hub-card .people{display:flex;gap:-4px;margin-bottom:14px;}
+.hub-card .avatar-mini{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;border:2px solid #2D1A20;margin-left:-6px;}
+.hub-card .avatar-mini:first-child{margin-left:0;}
+.hub-card .enter{font-size:12px;color:var(--brand-yellow);display:flex;align-items:center;gap:6px;}
+.landing-footer{font-size:11px;color:rgba(255,255,255,.35);text-align:center;max-width:420px;line-height:1.6;margin-top:24px;}
+.diretoria-row{display:flex;justify-content:center;margin-bottom:24px;width:100%;max-width:1000px;}
+.dir-card{background:rgba(26,26,26,.4);border:1px solid rgba(245,166,35,.3);border-radius:14px;padding:22px 28px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:20px;flex:1;max-width:680px;backdrop-filter:blur(10px);}
+.dir-card:hover{background:rgba(26,26,26,.6);border-color:rgba(233,62,92,.5);transform:translateY(-2px);}
+.dir-card .dir-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--brand-gradient);color:#1A1A1A;font-weight:700;}
+.dir-card .dir-info{flex:1;}
+.dir-card h2{font-size:16px;font-weight:600;}
+.dir-card .dir-enter{font-size:12px;color:var(--brand-yellow);white-space:nowrap;}
+
+/* PASSWORD MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(26,26,26,.75);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:1000;padding:24px;}
+.modal-overlay.show{display:flex;}
+.modal{background:#1A1A1A;border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:32px 28px;max-width:360px;width:100%;text-align:center;color:#fff;box-shadow:0 20px 60px rgba(233,62,92,.2);}
+.modal h3{font-size:18px;margin-bottom:6px;font-weight:600;}
+.modal .msg{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:22px;}
+.pin-inputs{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+.pin-inputs input{width:52px;height:58px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;font-size:22px;text-align:center;border-radius:8px;font-weight:600;}
+.pin-inputs input:focus{border-color:var(--brand-yellow);outline:none;background:rgba(245,166,35,.1);}
+.pin-error{color:#FF9999;font-size:12px;margin-bottom:12px;min-height:16px;}
+.modal .buttons{display:flex;gap:8px;}
+.modal button{flex:1;padding:10px;border:0;border-radius:8px;font-size:12px;cursor:pointer;font-weight:500;}
+.btn-cancel{background:rgba(255,255,255,.08);color:#fff;}
+.btn-enter{background:var(--brand-gradient);color:#1A1A1A;font-weight:600;}
+.btn-enter:hover{filter:brightness(1.1);}
+
+/* HUB PAGE */
+.hub-page{display:none;}
+.hub-page.show{display:block;}
+.topbar{background:#1A1A1A;padding:0 24px;display:flex;align-items:center;gap:0;height:52px;border-bottom:2px solid transparent;border-image:var(--brand-gradient) 1;}
+.topbar-title{color:#fff;font-size:15px;font-weight:600;margin-right:24px;white-space:nowrap;}
+.topbar-title span{background:var(--brand-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-tabs{display:flex;gap:0;height:52px;flex:1;}
+.nav-tab{padding:0 18px;height:52px;display:flex;align-items:center;color:rgba(255,255,255,.6);font-size:12px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;transition:.15s;white-space:nowrap;}
+.nav-tab:hover{color:#fff;}
+.nav-tab.active{color:#fff;border-bottom-color:var(--brand-yellow);}
+.topbar-right{display:flex;gap:8px;align-items:center;}
+.topbar-btn{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8);border:0;padding:6px 12px;border-radius:6px;font-size:11px;cursor:pointer;}
+.topbar-btn:hover{background:rgba(255,255,255,.15);color:#fff;}
+
+.page{display:none;padding:20px 24px;}
+.page.active{display:block;}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:20px;}
+@media(max-width:900px){.metrics{grid-template-columns:repeat(2,1fr);}}
+.met{background:#fff;border-radius:10px;border:0.5px solid #DDE3EC;padding:14px 16px;}
+.met-label{font-size:11px;color:#6B7A8D;margin-bottom:4px;}
+.met-val{font-size:24px;font-weight:600;color:#1A2332;}
+.met-sub{font-size:11px;color:#9AA5B4;margin-top:3px;}
+
+/* PEOPLE CARDS */
+.people-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px;}
+.pcard{background:#fff;border-radius:10px;border:0.5px solid #DDE3EC;padding:14px 16px;cursor:pointer;transition:.15s;}
+.pcard:hover{border-color:#3A7BD5;}
+.pcard.active-p{border:1.5px solid #3A7BD5;background:#F0F6FF;}
+.pcard-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;}
+.pcard-name{font-size:13px;font-weight:600;color:#1A2332;}
+.pcard-cargo{font-size:11px;color:#6B7A8D;}
+.pcard-bars{display:flex;flex-direction:column;gap:5px;}
+.bar-row{display:flex;align-items:center;gap:8px;font-size:11px;}
+.bar-label{width:90px;color:#6B7A8D;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bar-track{flex:1;background:#F0F2F5;border-radius:3px;height:7px;}
+.bar-fill{height:7px;border-radius:3px;}
+.bar-count{width:18px;text-align:right;color:#1A2332;font-weight:500;}
+
+/* FILTERS */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center;}
+.filter-label{font-size:11px;color:#6B7A8D;font-weight:500;}
+.chip{padding:5px 12px;border-radius:999px;border:0.5px solid var(--border);font-size:11px;cursor:pointer;background:#fff;color:var(--text-muted);transition:.12s;}
+.chip:hover{border-color:var(--brand-pink);color:var(--brand-pink);}
+.chip.on{background:var(--brand-pink);color:#fff;border-color:var(--brand-pink);}
+select.fsel{height:30px;border-radius:6px;border:0.5px solid var(--border);padding:0 8px;font-size:11px;background:#fff;color:var(--text-main);}
+
+/* TABLE */
+.tbl-wrap{background:#fff;border-radius:10px;border:0.5px solid #DDE3EC;overflow:hidden;}
+.tbl-head{padding:12px 16px;border-bottom:0.5px solid #DDE3EC;display:flex;align-items:center;justify-content:space-between;}
+.tbl-head-title{font-size:12px;font-weight:600;color:#1A2332;}
+.tbl-count{font-size:11px;color:#6B7A8D;}
+.tbl-scroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:900px;}
+th{background:#F8F9FB;font-size:11px;font-weight:600;color:#6B7A8D;text-align:left;padding:8px 12px;border-bottom:0.5px solid #DDE3EC;white-space:nowrap;overflow:hidden;}
+td{padding:8px 12px;border-bottom:0.5px solid #F0F2F5;vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#FAFBFC;}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:600;white-space:nowrap;}
+.b-and{background:#FFF3CD;color:#7A5A00;}
+.b-ni{background:#D6E8FF;color:#1A4F8A;}
+.b-ag{background:#FCE7D2;color:#7C3A0C;}
+.b-bl{background:#FFD6D6;color:#8A1A1A;}
+.b-env{background:#EDE8FF;color:#4A2D8A;}
+.b-ok{background:#D4EDDA;color:#145A32;}
+.b-u-g{background:#FFD6D6;color:#8A1A1A;}
+.b-u-m{background:#FFF3CD;color:#7A5A00;}
+.b-u-p{background:#D4EDDA;color:#145A32;}
+.tag-person{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:500;margin:1px;border:0.5px solid;}
+.badge.clickable{cursor:pointer;transition:.12s;user-select:none;}
+.badge.clickable:hover{transform:scale(1.06);box-shadow:0 1px 4px rgba(0,0,0,.15);}
+
+.section-title{font-size:11px;font-weight:600;color:#6B7A8D;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+
+/* Beyond */
+.beyond-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+@media(max-width:860px){.beyond-grid{grid-template-columns:1fr;}}
+.beyond-card{background:#FFFBEB;border:0.5px solid #FDE68A;border-radius:10px;padding:14px 16px;}
+.beyond-card .h{font-size:12px;font-weight:600;color:#92400E;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.beyond-card ul{margin:0;padding-left:18px;font-size:12px;line-height:1.65;color:#3D3929;}
+
+/* EDIT */
+.edit-toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+.btn{padding:7px 16px;border-radius:6px;border:0.5px solid var(--border);font-size:12px;cursor:pointer;background:#fff;color:var(--text-main);font-weight:500;}
+.btn:hover{background:#FDF3E8;border-color:var(--brand-orange);color:var(--brand-pink);}
+.btn-primary{background:var(--brand-gradient);color:#1A1A1A;border-color:transparent;font-weight:600;}
+.btn-primary:hover{filter:brightness(1.05);color:#1A1A1A;}
+.edit-table-wrap{background:#fff;border-radius:10px;border:0.5px solid #DDE3EC;overflow:auto;}
+.edit-table{width:100%;border-collapse:collapse;min-width:1100px;}
+.edit-table th{background:#F8F9FB;font-size:11px;font-weight:600;color:#6B7A8D;text-align:left;padding:8px 10px;border-bottom:0.5px solid #DDE3EC;white-space:nowrap;}
+.edit-table td{padding:4px 6px;border-bottom:0.5px solid #F0F2F5;vertical-align:middle;}
+.edit-table tr:hover td{background:#FAFBFC;}
+.edit-table input,.edit-table select{width:100%;border:0.5px solid transparent;border-radius:4px;padding:4px 6px;font-size:11px;background:transparent;font-family:inherit;color:#1A2332;}
+.edit-table input:focus,.edit-table select:focus{border-color:#3A7BD5;background:#F0F6FF;outline:none;}
+.edit-table select{cursor:pointer;}
+.del-btn{width:24px;height:24px;border-radius:4px;border:none;background:#FFD6D6;color:#8A1A1A;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.del-btn:hover{background:#FFC0C0;}
+
+.toast{position:fixed;top:66px;right:24px;background:#1E2D40;color:#fff;padding:10px 18px;border-radius:8px;font-size:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;}
+.toast.show{opacity:1;}
+
+.storage-note{background:#F0F6FF;border:0.5px solid #C7DCF0;border-radius:6px;padding:8px 12px;font-size:11px;color:#1A4F8A;margin-bottom:12px;}
+.empty-state{text-align:center;padding:40px 20px;color:#9AA5B4;font-size:12px;font-style:italic;}
+
+/* Diretoria */
+.hubs-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px;}
+@media(max-width:860px){.hubs-summary{grid-template-columns:1fr;}}
+.hub-sum{background:#fff;border-radius:10px;border:0.5px solid #DDE3EC;padding:16px 18px;border-left:4px solid #DDE3EC;}
+.hub-sum h3{font-size:13px;font-weight:600;margin-bottom:2px;}
+.hub-sum .sub{font-size:11px;color:#6B7A8D;margin-bottom:12px;}
+.hub-sum-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.hub-sum-st{text-align:center;padding:8px 4px;border-radius:6px;background:#F8F9FB;}
+.hub-sum-st .n{font-size:20px;font-weight:600;line-height:1;}
+.hub-sum-st .l{font-size:10px;color:#6B7A8D;margin-top:2px;letter-spacing:.02em;}
+
+.rank-row{display:flex;align-items:center;gap:12px;padding:10px 12px;background:#fff;border:0.5px solid #DDE3EC;border-radius:8px;margin-bottom:6px;}
+.rank-row .pos{width:24px;font-weight:700;color:#6B7A8D;text-align:center;font-size:14px;}
+.rank-row .av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;flex-shrink:0;}
+.rank-row .info{flex:1;min-width:0;}
+.rank-row .name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.rank-row .meta{font-size:11px;color:#6B7A8D;display:flex;gap:10px;flex-wrap:wrap;}
+.rank-row .hubs{display:flex;gap:3px;}
+.rank-row .hub-dot{padding:1px 7px;border-radius:999px;font-size:9px;color:#fff;font-weight:600;}
+.rank-row .bar-viz{flex:1;height:24px;display:flex;border-radius:4px;overflow:hidden;background:#F0F2F5;min-width:200px;max-width:420px;}
+.rank-row .bar-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;}
+.rank-row .totals{text-align:right;}
+.rank-row .totals .t-big{font-size:18px;font-weight:700;line-height:1;}
+.rank-row .totals .t-label{font-size:10px;color:#6B7A8D;}
+
+.team-bar{margin-bottom:10px;}
+.team-bar .tb-head{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;}
+.team-bar .tb-name{font-weight:600;}
+.team-bar .tb-track{height:24px;background:#F0F2F5;border-radius:4px;display:flex;overflow:hidden;}
+.team-bar .tb-seg{height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;}
+
+.alerts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+.alert-card{background:#fff;border-radius:10px;border:0.5px solid #DDE3EC;padding:16px 18px;border-top:3px solid #DDE3EC;}
+.alert-card.red{border-top-color:#E24B4A;}
+.alert-card.yellow{border-top-color:#F59E0B;}
+.alert-card.green{border-top-color:#1D9E75;}
+.alert-card.blue{border-top-color:#3A7BD5;}
+.alert-card h3{font-size:13px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.alert-card .count{font-size:11px;padding:2px 8px;border-radius:999px;}
+.alert-card.red .count{background:#FFD6D6;color:#8A1A1A;}
+.alert-card.yellow .count{background:#FEF3C7;color:#92400E;}
+.alert-card.green .count{background:#D4EDDA;color:#145A32;}
+.alert-card.blue .count{background:#D6E8FF;color:#1A4F8A;}
+.alert-card .desc{font-size:11px;color:#6B7A8D;margin-bottom:10px;}
+.alert-card ul{list-style:none;padding:0;margin:0;}
+.alert-card li{padding:6px 0;border-bottom:0.5px solid #F0F2F5;font-size:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.alert-card li:last-child{border-bottom:none;}
+.alert-card li .pname{font-weight:600;}
+.alert-card li .pcargo{font-size:10px;color:#6B7A8D;}
+.alert-card li .pval{font-size:13px;font-weight:700;}
+</style>
+</head>
+<body>
+
+<!-- ============ LANDING ============ -->
+<div class="landing" id="page-landing">
+  <h1>Planejamento <b>Publination</b></h1>
+  <div class="tagline">Escolha um hub para entrar</div>
+  <div class="hubs-grid" id="hubs-grid"></div>
+  <div class="diretoria-row" id="diretoria-row"></div>
+  <div class="landing-footer">
+    Cada hub tem uma senha de 4 dígitos própria. Seus dados ficam salvos localmente no navegador de quem acessa.
+  </div>
+</div>
+
+<!-- ============ PASSWORD MODAL ============ -->
+<div class="modal-overlay" id="pwd-modal">
+  <div class="modal">
+    <h3 id="pwd-title">Hub</h3>
+    <div class="msg">Digite a senha de 4 dígitos</div>
+    <div class="pin-inputs">
+      <input type="password" inputmode="numeric" maxlength="1" class="pin-i">
+      <input type="password" inputmode="numeric" maxlength="1" class="pin-i">
+      <input type="password" inputmode="numeric" maxlength="1" class="pin-i">
+      <input type="password" inputmode="numeric" maxlength="1" class="pin-i">
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+    <div class="buttons">
+      <button class="btn-cancel" onclick="closePwdModal()">Cancelar</button>
+      <button class="btn-enter" onclick="checkPwd()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HUB PAGE ============ -->
+<div class="hub-page" id="page-hub">
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">Hub</div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="goPage('dash',event)">Dashboard</div>
+      <div class="nav-tab" onclick="goPage('carga',event)">Carga</div>
+      <div class="nav-tab" onclick="goPage('papeis',event)">Papéis</div>
+      <div class="nav-tab" onclick="goPage('editar',event)">Editar</div>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn" onclick="logout()">← Voltar pro Publination</button>
+    </div>
+  </div>
+
+  <div class="page active" id="page-dash">
+    <div class="metrics" id="metrics"></div>
+    <div class="section-title">Time</div>
+    <div class="people-grid" id="people-grid"></div>
+    <div class="filters" id="filters-dash">
+      <span class="filter-label">Status:</span>
+      <span class="chip on" data-s="all">Todos</span>
+      <span class="chip" data-s="Em andamento">Em andamento</span>
+      <span class="chip" data-s="Não iniciada">Não iniciada</span>
+      <span class="chip" data-s="Aguardando">Aguardando</span>
+      <span class="chip" data-s="Bloqueada">Bloqueada</span>
+      <span class="chip" data-s="Enviado">Enviado</span>
+      <span class="chip" data-s="Feito">Feito</span>
+      <span style="margin-left:12px;" class="filter-label">Cliente:</span>
+      <select class="fsel" id="filter-cliente"><option value="all">Todos</option></select>
+    </div>
+    <div class="tbl-wrap">
+      <div class="tbl-head">
+        <span class="tbl-head-title">Demandas <span style="font-weight:400;color:#6B7A8D;">— clique no status pra avançar</span></span>
+        <span class="tbl-count" id="tbl-count"></span>
+      </div>
+      <div class="tbl-scroll">
+        <table>
+          <colgroup>
+            <col style="width:110px"><col style="width:80px"><col style="width:190px">
+            <col style="width:190px"><col style="width:130px"><col style="width:105px"><col style="width:90px"><col style="width:140px">
+          </colgroup>
+          <thead><tr>
+            <th>Cliente</th><th>Urgência</th><th>Projeto</th><th>Tarefa</th>
+            <th>Responsável</th><th>Status</th><th>Entrega</th><th>Obs</th>
+          </tr></thead>
+          <tbody id="dash-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-carga">
+    <div class="section-title" style="margin-bottom:16px;">Carga por responsável</div>
+    <div class="people-grid" id="carga-grid"></div>
+    <div class="tbl-wrap" style="margin-top:8px;">
+      <div class="tbl-head"><span class="tbl-head-title">Resumo de carga</span></div>
+      <div class="tbl-scroll">
+        <table style="table-layout:fixed;min-width:900px;">
+          <colgroup><col style="width:140px"><col style="width:140px"><col style="width:100px"><col style="width:100px"><col style="width:100px"><col style="width:100px"><col style="width:100px"><col style="width:100px"></colgroup>
+          <thead><tr><th>Responsável</th><th>Cargo</th><th>Em andamento</th><th>Não iniciada</th><th>Aguardando</th><th>Bloqueada</th><th>Enviado</th><th>Ativo</th></tr></thead>
+          <tbody id="carga-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-papeis">
+    <div class="section-title" style="margin-bottom:16px;">Responsabilidades além do board</div>
+    <div class="beyond-grid" id="beyond-grid"></div>
+    <div class="section-title" style="margin-top:20px;">Estrutura do time</div>
+    <div class="tbl-wrap">
+      <div class="tbl-scroll">
+        <table style="min-width:600px;">
+          <colgroup><col style="width:180px"><col style="width:200px"><col style="width:140px"><col style="width:100px"></colgroup>
+          <thead><tr><th>Pessoa</th><th>Cargo</th><th>Senioridade</th><th>Demandas</th></tr></thead>
+          <tbody id="papeis-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-editar">
+    <div class="storage-note">Alterações ficam salvas no seu navegador. Use "Exportar CSV" pra compartilhar.</div>
+    <div class="edit-toolbar">
+      <button class="btn btn-primary" onclick="addRow()">+ Nova demanda</button>
+      <button class="btn" onclick="exportCSV()">Exportar CSV</button>
+      <button class="btn" onclick="resetData()" style="color:#8A1A1A;border-color:#FFD6D6;">Resetar</button>
+      <span style="font-size:11px;color:#6B7A8D;margin-left:8px;">Edite direto nos campos. Salva automaticamente.</span>
+    </div>
+    <div class="edit-table-wrap">
+      <table class="edit-table">
+        <thead><tr>
+          <th style="width:110px;">Cliente</th>
+          <th style="width:80px;">Urgência</th>
+          <th style="width:180px;">Projeto</th>
+          <th style="width:200px;">Tarefa</th>
+          <th style="width:140px;">Responsável</th>
+          <th style="width:120px;">Ponto contato</th>
+          <th style="width:120px;">Status</th>
+          <th style="width:95px;">Entrega</th>
+          <th style="width:180px;">Obs</th>
+          <th style="width:32px;"></th>
+        </tr></thead>
+        <tbody id="edit-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DIRETORIA PAGE ============ -->
+<div class="hub-page" id="page-diretoria">
+  <div class="topbar" style="background:linear-gradient(90deg,#1A1A1A 0%,#2D1A20 50%,#3D1520 100%);">
+    <div class="topbar-title">Painel <span>Diretoria</span></div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="goDirPage('overview',event)">Visão geral</div>
+      <div class="nav-tab" onclick="goDirPage('people',event)">Pessoas</div>
+      <div class="nav-tab" onclick="goDirPage('teams',event)">Times</div>
+      <div class="nav-tab" onclick="goDirPage('alerts',event)">Alertas</div>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn" onclick="renderDiretoria()">↻ Atualizar</button>
+      <button class="topbar-btn" onclick="logout()">← Voltar</button>
+    </div>
+  </div>
+
+  <div class="page active" id="dir-page-overview">
+    <div class="metrics" id="dir-metrics"></div>
+    <div class="section-title">Hubs</div>
+    <div class="hubs-summary" id="hubs-summary"></div>
+    <div class="section-title" style="margin-top:18px;">Atrasadas agora</div>
+    <div class="tbl-wrap">
+      <div class="tbl-scroll">
+        <table style="min-width:900px;">
+          <colgroup><col style="width:100px"><col style="width:110px"><col style="width:180px"><col style="width:200px"><col style="width:130px"><col style="width:100px"></colgroup>
+          <thead><tr><th>Hub</th><th>Cliente</th><th>Projeto</th><th>Tarefa</th><th>Responsável</th><th>Entrega</th></tr></thead>
+          <tbody id="dir-late-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="dir-page-people">
+    <div class="section-title">Ranking de carga ativa por pessoa</div>
+    <div style="font-size:11px;color:#6B7A8D;margin-bottom:12px;">Soma de demandas ativas (Em andamento, Não iniciada, Aguardando, Bloqueada) de todos os hubs em que a pessoa aparece.</div>
+    <div id="people-ranking"></div>
+  </div>
+
+  <div class="page" id="dir-page-teams">
+    <div class="section-title">Distribuição de carga por time</div>
+    <div id="team-chart"></div>
+    <div class="section-title" style="margin-top:18px;">Demandas por status em cada hub</div>
+    <div class="tbl-wrap">
+      <div class="tbl-scroll">
+        <table style="min-width:800px;">
+          <colgroup><col style="width:180px"><col style="width:100px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:100px"><col style="width:100px"><col style="width:90px"></colgroup>
+          <thead><tr><th>Hub</th><th>Em andamento</th><th>Não iniciada</th><th>Aguardando</th><th>Bloqueada</th><th>Enviado</th><th>Feito</th><th>Total</th></tr></thead>
+          <tbody id="dir-teams-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="dir-page-alerts">
+    <div class="alerts-grid" id="alerts-grid"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Salvo!</div>
+
+<script>
+// ════════ SEED BELEZA (dados reais da planilha) ════════
+const SEED_BELEZA = [{"id":1,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"NATAL","tarefa":"filtro forms UGC","resp":"Gustavo, Aline","contato":"Juju","status":"Bloqueada","entrega":"26/11/2025","obs":"aguardando retorno da isa"},{"id":2,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"CBEM CEREJA DE FASES","tarefa":"estudo big name","resp":"Aline, Thábata","contato":"Isabella","status":"Bloqueada","entrega":"A definir","obs":"[NSPA ORQUÍDEA LUMIÉRE] MAPEAMENTO BIG NAMES_PUBLINATION_V1 formato pra replicar"},{"id":3,"cliente":"QDB","urgencia":"Pequena","projeto":"NAH CARDOSO","tarefa":"Mapeamento","resp":"Aline","contato":"Luciana","status":"Bloqueada","entrega":"02/02/2026","obs":""},{"id":4,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"THE BLEND","tarefa":"Mapeamento Mailing","resp":"Olivia","contato":"Regiane","status":"Bloqueada","entrega":"08/04/2026","obs":""},{"id":5,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"THE BLEND","tarefa":"SELEÇÃO DE UGCS","resp":"Olivia","contato":"Regiane","status":"Bloqueada","entrega":"13/04/2026","obs":""},{"id":6,"cliente":"EUDORA","urgencia":"Grande","projeto":"MEGA PROMO","tarefa":"UGC","resp":"Aline","contato":"Radi","status":"Em andamento","entrega":"22/04/2026","obs":""},{"id":7,"cliente":"EUDORA","urgencia":"Grande","projeto":"BOND RESET","tarefa":"Short List","resp":"Giovana","contato":"Radi","status":"Em andamento","entrega":"22/04/2026","obs":""},{"id":8,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BBX","tarefa":"Mapeamento Mães","resp":"Olivia","contato":"Regiane","status":"Em andamento","entrega":"22/04/2026","obs":""},{"id":9,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"CBEM CARAMELO","tarefa":"Briefing Story","resp":"Olivia","contato":"Juju","status":"Não iniciada","entrega":"22/04/2026","obs":""},{"id":10,"cliente":"QDB","urgencia":"Média","projeto":"FRIENDS","tarefa":"Mapeamento","resp":"Nicole","contato":"Luciana","status":"Em andamento","entrega":"23/04/2026","obs":""},{"id":11,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"Briefing Allan Vaz","resp":"Giovana","contato":"Nicole","status":"Não iniciada","entrega":"23/04/2026","obs":""},{"id":12,"cliente":"VULT","urgencia":"Média","projeto":"C2+C3","tarefa":"Plano Integrado Messs","resp":"Thábata","contato":"Kimberly Alves","status":"Em andamento","entrega":"23/04/2026","obs":""},{"id":13,"cliente":"EUDORA","urgencia":"Média","projeto":"BOND RESET","tarefa":"Mapeamento apresentação","resp":"Olivia","contato":"Radi","status":"Não iniciada","entrega":"23/04/2026","obs":""},{"id":14,"cliente":"EUDORA","urgencia":"Média","projeto":"ROYALS","tarefa":"Ajustes V2","resp":"Thábata","contato":"Radi","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":15,"cliente":"MARY KAY","urgencia":"Média","projeto":"MÁSCARA GREAT HEIGHTS","tarefa":"Plano","resp":"Aline","contato":"Kimberly Alves","status":"Em andamento","entrega":"24/04/2026","obs":""},{"id":16,"cliente":"LICENCIADAS","urgencia":"Média","projeto":"PAMPERS","tarefa":"Plano AON","resp":"Olivia","contato":"Geovanna","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":17,"cliente":"GRUPO GB","urgencia":"Pequena","projeto":"BBX","tarefa":"Briefing Mães","resp":"Nicole","contato":"Regiane","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":18,"cliente":"EUDORA","urgencia":"Média","projeto":"NUTRI DIAMONDS","tarefa":"V2 | Plano Integrado","resp":"Thábata","contato":"Radi","status":"Não iniciada","entrega":"27/04/2026","obs":""},{"id":19,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"NATIVA SPA CRÈME PERFUMÉE","tarefa":"V2 Integrada","resp":"Aline","contato":"Juju","status":"Não iniciada","entrega":"27/04/2026","obs":""},{"id":20,"cliente":"EUDORA","urgencia":"Média","projeto":"CLUB 6 EDP","tarefa":"Integração V1","resp":"Olivia","contato":"Giovanna Traldi","status":"Não iniciada","entrega":"28/04/2026","obs":""},{"id":21,"cliente":"OPORTUNIDADE","urgencia":"Pequena","projeto":"99","tarefa":"Briefing macro","resp":"Nicole","contato":"Kimberly Alves","status":"Não iniciada","entrega":"28/04/2026","obs":""},{"id":22,"cliente":"VULT","urgencia":"Média","projeto":"SOCIAL PULSE","tarefa":"Entrega","resp":"","contato":"","status":"Não iniciada","entrega":"29/04/2026","obs":""},{"id":23,"cliente":"EUDORA","urgencia":"Média","projeto":"ATHLEISURE","tarefa":"Plano integrado V2","resp":"Thábata","contato":"Radi","status":"Não iniciada","entrega":"30/04/2026","obs":""},{"id":24,"cliente":"EUDORA","urgencia":"Média","projeto":"EDP","tarefa":"Mapeamento","resp":"Aline","contato":"","status":"Não iniciada","entrega":"30/04/2026","obs":""},{"id":25,"cliente":"EUDORA","urgencia":"Média","projeto":"EDP","tarefa":"Integrado","resp":"Aline","contato":"Radi","status":"Não iniciada","entrega":"30/04/2026","obs":""},{"id":26,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"Regional - Fluxo de loja","tarefa":"Plano AON","resp":"Giovana","contato":"Gabi Maia","status":"Não iniciada","entrega":"11/05/2026","obs":""},{"id":27,"cliente":"VULT","urgencia":"Média","projeto":"C04 MAKE","tarefa":"Plano integrado","resp":"","contato":"Kimberly Alves","status":"Não iniciada","entrega":"12/05/2026","obs":""},{"id":28,"cliente":"OPORTUNIDADE","urgencia":"Média","projeto":"IMERSÃO","tarefa":"Novas oportunidades","resp":"Aline","contato":"","status":"Bloqueada","entrega":"PAUSADO","obs":""},{"id":29,"cliente":"OPORTUNIDADE","urgencia":"Média","projeto":"SALÃO 99","tarefa":"Briefing Macro","resp":"Aline","contato":"Kimberly Alves","status":"Aguardando","entrega":"AGUARDANDO","obs":""},{"id":30,"cliente":"EUDORA","urgencia":"Média","projeto":"BOND RESET","tarefa":"Integração V1 (GERAL CAMPANHA)","resp":"Olivia","contato":"Radi","status":"Não iniciada","entrega":"aguardando","obs":""},{"id":31,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"OPORTUNIDADE WSL","tarefa":"PLANO","resp":"","contato":"Juju","status":"Não iniciada","entrega":"17/04/2026","obs":""},{"id":32,"cliente":"EUDORA","urgencia":"Grande","projeto":"DIA DAS MÃES","tarefa":"Briefing regional","resp":"Thábata","contato":"Radi","status":"Enviado","entrega":"22/04/2026","obs":""},{"id":33,"cliente":"EUDORA","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Briefing individual","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"17/04/2026","obs":""},{"id":34,"cliente":"O.U.I","urgencia":"Pequena","projeto":"DIA DAS MÃES","tarefa":"mapeamento conversão","resp":"Gustavo","contato":"Giovanna Traldi","status":"Enviado","entrega":"17/04/2026","obs":""},{"id":35,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"Mapeamento Regional","resp":"Giovana","contato":"Nicole","status":"Enviado","entrega":"16/04/2026","obs":""},{"id":36,"cliente":"EUDORA","urgencia":"Pequena","projeto":"BOND RESET","tarefa":"Briefing de Stories","resp":"Aline","contato":"Radi","status":"Enviado","entrega":"14/04/2026","obs":""},{"id":37,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BBX","tarefa":"Briefing Aniversário","resp":"Olivia","contato":"Regiane","status":"Enviado","entrega":"13/04/2026","obs":""},{"id":38,"cliente":"EUDORA","urgencia":"Média","projeto":"DIABO VESTE PRADA","tarefa":"Plano integrado V4","resp":"Aline","contato":"Radi","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":39,"cliente":"EUDORA","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Mapeamento influs + ugc","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":40,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"FLORATTA ROSÉ SUCRÉE","tarefa":"Briefing 2ª semana","resp":"Aline","contato":"Juju","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":41,"cliente":"QDB","urgencia":"Pequena","projeto":"QDB SERVIÇOS DE LOJA","tarefa":"Mapeamento","resp":"Aline, Gustavo","contato":"Luciana","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":42,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CBEM CARAMELO","tarefa":"Briefing stories","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":43,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"FLORATTA ROSÉ SUCRÉE","tarefa":"Briefing 3ª semana","resp":"Aline","contato":"Juju","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":44,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"DIA DAS MÃES","tarefa":"One page","resp":"Giovana","contato":"Juju","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":45,"cliente":"EUDORA","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Briefing Macro","resp":"Thábata","contato":"Radi","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":46,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"FLORATTA ROSÉ SUCRÉE","tarefa":"Briefing 1ª semana","resp":"Aline","contato":"Juju","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":47,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"CBEM CARAMELO","tarefa":"Briefing macro","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"08/04/2026","obs":""},{"id":48,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"C13 - ZAAD","tarefa":"Apresentação - Mapeamento BIG NAMES","resp":"Thábata","contato":"Juju","status":"Enviado","entrega":"08/04/2026","obs":""},{"id":49,"cliente":"VULT","urgencia":"Média","projeto":"OPORTUNIDADES BBB26","tarefa":"Diagnóstico","resp":"Aline","contato":"Kimberly Alves","status":"Enviado","entrega":"08/04/2026","obs":""},{"id":50,"cliente":"EUDORA","urgencia":"Pequena","projeto":"BOND RESET","tarefa":"Mapeamento (poucos nomes)","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"07/04/2026","obs":""},{"id":51,"cliente":"EUDORA","urgencia":"Pequena","projeto":"BOND RESET","tarefa":"Integração V1 - diária na fábrica","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"07/04/2026","obs":""},{"id":52,"cliente":"EUDORA","urgencia":"Média","projeto":"DIAS DAS MÃES","tarefa":"Mapeamento fechado (ugc+clusters)","resp":"Aline, Giovana","contato":"Radi","status":"Enviado","entrega":"06/04/2026","obs":""},{"id":53,"cliente":"VULT","urgencia":"Pequena","projeto":"BATON","tarefa":"Mapeamento v2","resp":"Thábata","contato":"Kimberly Alves","status":"Enviado","entrega":"02/04/2026","obs":""},{"id":54,"cliente":"EUDORA","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"Plano v3","resp":"Aline","contato":"Radi","status":"Enviado","entrega":"31/03/2026","obs":""},{"id":55,"cliente":"O.U.I","urgencia":"Pequena","projeto":"UGC/NANO/MICRO MON AMIE","tarefa":"Formulário","resp":"Giovana","contato":"Giovanna Traldi","status":"Enviado","entrega":"30/03/2026","obs":""},{"id":56,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"NSPA Crème Parfumée","tarefa":"Mapeamento","resp":"Gustavo, Giovana","contato":"Juju","status":"Enviado","entrega":"30/03/2026","obs":""},{"id":57,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"planejamento V2","resp":"Giovana, Olivia","contato":"Juju","status":"Enviado","entrega":"27/03/2026","obs":""},{"id":58,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Briefings Individuais","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"26/03/2026","obs":"Nomes a confirmar"},{"id":59,"cliente":"EUDORA","urgencia":"Média","projeto":"NOMES REGIONAIS","tarefa":"Apresentação do Mapeamento","resp":"Thábata","contato":"Giovanna Traldi","status":"Enviado","entrega":"26/03/2026","obs":""},{"id":60,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"THE BLEND","tarefa":"Briefing","resp":"Olivia","contato":"Regiane","status":"Enviado","entrega":"25/03/2026","obs":""},{"id":61,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"C6 | CBEM CARAMELO","tarefa":"Mapeamento","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"24/03/2026","obs":""},{"id":62,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"ajustes","resp":"Olivia","contato":"Heloisa","status":"Enviado","entrega":"24/03/2026","obs":""},{"id":63,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BOTI BABY LUA","tarefa":"ajustes","resp":"Aline","contato":"Arycia","status":"Enviado","entrega":"24/03/2026","obs":""},{"id":64,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BOTI BABY LUA","tarefa":"BRIEFING AJUSTES","resp":"Thábata","contato":"Heloisa","status":"Enviado","entrega":"23/03/2026","obs":""},{"id":65,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Briefings Individuais","resp":"Thábata","contato":"Arycia","status":"Enviado","entrega":"23/03/2026","obs":""},{"id":66,"cliente":"BELEZA NA WEB","urgencia":"Média","projeto":"BELEZA EXPERIENCE | MC","tarefa":"Mapeamento","resp":"Giovana, Gustavo","contato":"Luciana","status":"Enviado","entrega":"23/03/2026","obs":""},{"id":67,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Ajustes Mapeamento","resp":"Olivia","contato":"Gabi","status":"Enviado","entrega":"20/03/2026","obs":""},{"id":68,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"NSPA","tarefa":"Ajustes Briefing","resp":"Aline","contato":"Isabella","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":69,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"BOTI SÃO JOÃO","tarefa":"Análise João Gomes","resp":"Aline","contato":"Bruna Sinhorini","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":70,"cliente":"EUDORA","urgencia":"Média","projeto":"NUTRI DIAMONDS","tarefa":"Mapeamento","resp":"Olivia, Thábata","contato":"","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":71,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Briefing Macro","resp":"Thábata","contato":"Gabi","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":72,"cliente":"MARY KAY","urgencia":"Média","projeto":"RETINOL SKINCARE","tarefa":"Mapeamento","resp":"Giovana, Nicole","contato":"Narda","status":"Feito","entrega":"17/04/2026","obs":""},{"id":73,"cliente":"MARY KAY","urgencia":"Média","projeto":"RETINOL SKINCARE","tarefa":"Plano","resp":"Giovana, Nicole","contato":"Narda","status":"Feito","entrega":"17/04/2026","obs":""},{"id":74,"cliente":"EUDORA","urgencia":"Média","projeto":"ROYALS","tarefa":"V2 Integrada","resp":"Thábata","contato":"Radi","status":"Feito","entrega":"17/04/2026","obs":""},{"id":75,"cliente":"EUDORA","urgencia":"Média","projeto":"MEGA PROMO","tarefa":"V1 Integrado","resp":"Aline, Thábata","contato":"Radi","status":"Feito","entrega":"17/04/2026","obs":""},{"id":76,"cliente":"EUDORA","urgencia":"Grande","projeto":"MEGA PROMO","tarefa":"Mapeamento","resp":"Olivia, Nicole, Aline","contato":"Radi","status":"Feito","entrega":"16/04/2026","obs":""},{"id":77,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"Planejamento V3","resp":"Olivia","contato":"Nicole","status":"Feito","entrega":"16/04/2026","obs":""},{"id":78,"cliente":"EUDORA","urgencia":"Pequena","projeto":"ROYALS","tarefa":"Mapeamento influs Paris + Casais TikTok","resp":"Olivia","contato":"Radi","status":"Feito","entrega":"15/04/2026","obs":""},{"id":79,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"MALBEC PURE GOLD","tarefa":"V1 Integrado","resp":"Giovana","contato":"Juju","status":"Feito","entrega":"15/04/2026","obs":""},{"id":80,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"C06/26 | CASA 214 - FIGO MAGNIFÍCO","tarefa":"Mapeamento","resp":"Gustavo","contato":"Juju","status":"Feito","entrega":"15/04/2026","obs":""},{"id":81,"cliente":"EUDORA","urgencia":"Média","projeto":"BOND RESET","tarefa":"Mapeamento Nomes Internacionais","resp":"Olivia","contato":"Radi","status":"Feito","entrega":"15/04/2026","obs":"BOND | BRIEFING CELEB BIG NAME"},{"id":82,"cliente":"VULT","urgencia":"Média","projeto":"C2","tarefa":"Plano de influencia","resp":"Thábata","contato":"Kimberly Alves","status":"Feito","entrega":"15/04/2026","obs":""},{"id":83,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BBX","tarefa":"Briefing Promoção","resp":"Olivia","contato":"Regiane","status":"Feito","entrega":"14/04/2026","obs":""},{"id":84,"cliente":"VULT","urgencia":"Média","projeto":"OPORTUNIDADES BBB26","tarefa":"PR STUNT","resp":"Aline","contato":"Kimberly Alves","status":"Feito","entrega":"14/04/2026","obs":""},{"id":85,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"MALBEC PURE GOLD","tarefa":"mapeamento","resp":"Giovana, Thábata","contato":"Juju","status":"Feito","entrega":"13/04/2026","obs":""},{"id":86,"cliente":"QDB","urgencia":"Pequena","projeto":"ASIAN BEAUTY","tarefa":"Mapeamento","resp":"Thábata","contato":"Luciana","status":"Feito","entrega":"13/04/2026","obs":""},{"id":87,"cliente":"EUDORA","urgencia":"Grande","projeto":"DIA DAS MÃES","tarefa":"Ajustes Briefing Eudora","resp":"Thábata","contato":"Radi","status":"Feito","entrega":"13/04/2026","obs":""},{"id":88,"cliente":"EUDORA","urgencia":"Média","projeto":"ATHLEISURE","tarefa":"Mapeamento","resp":"Giovana, Gustavo","contato":"Radi","status":"Feito","entrega":"10/04/2026","obs":""},{"id":89,"cliente":"EUDORA","urgencia":"Média","projeto":"ATHLEISURE","tarefa":"Plano integrado V1","resp":"Thábata","contato":"Radi","status":"Feito","entrega":"10/04/2026","obs":""},{"id":90,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"MAKE B.","tarefa":"Ajustes V2","resp":"Olivia","contato":"Isabella","status":"Feito","entrega":"09/04/2026","obs":""},{"id":91,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Briefing macro","resp":"Giovana","contato":"Isabella","status":"Feito","entrega":"09/04/2026","obs":""}];
+
+// ════════ SEED NOVOS NEGÓCIOS (dados reais da planilha [NN] PAUTA & CRONOGRAMA) ════════
+const SEED_NN = [{"id":1,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"NATAL","tarefa":"filtro forms UGC","resp":"Gustavo, Aline","contato":"Juju","status":"Bloqueada","entrega":"26/11/2025","obs":"aguardando retorno da isa"},{"id":2,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"CBEM CEREJA DE FASES","tarefa":"estudo big name","resp":"Aline, Thábata","contato":"Isabella","status":"Bloqueada","entrega":"A definir","obs":"[NSPA ORQUÍDEA LUMIÉRE] MAPEAMENTO BIG NAMES_PUBLINATION_V1 formato pra replicar"},{"id":3,"cliente":"VB REFRESCA","urgencia":"Média","projeto":"Pós carnaval PL","tarefa":"briefing","resp":"Gabô","contato":"","status":"Bloqueada","entrega":"","obs":""},{"id":4,"cliente":"AVATIM","urgencia":"Grande","projeto":"DIA DA MULHER","tarefa":"BRIEFING DIA DA MULHER","resp":"Gabô","contato":"Jess","status":"Bloqueada","entrega":"04/03/2026","obs":""},{"id":5,"cliente":"OMODA","urgencia":"Grande","projeto":"CONCORRENCIA","tarefa":"Plano","resp":"Gabô","contato":"Gustavo","status":"Bloqueada","entrega":"16/03/2026","obs":""},{"id":6,"cliente":"QI MARKETING | CENTRO CELL","urgencia":"Média","projeto":"fluxo loja","tarefa":"MAPEAMENTO REGIONAL","resp":"Gabô","contato":"Felipe","status":"Aguardando","entrega":"10/04/2026","obs":""},{"id":7,"cliente":"QI MARKETING | CENTRO CELL","urgencia":"Média","projeto":"PDV","tarefa":"MAPEAMENTO CELEBRIDADE","resp":"Gabô","contato":"Felipe","status":"Aguardando","entrega":"10/04/2026","obs":""},{"id":8,"cliente":"CAJU LIMÃO","urgencia":"Grande","projeto":"BSB","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Felipe","status":"Em andamento","entrega":"15/04/2026","obs":""},{"id":9,"cliente":"OPORTUNIDADES","urgencia":"Grande","projeto":"OPORTUNIDADE","tarefa":"WSL","resp":"Gabô","contato":"Gustavo","status":"Em andamento","entrega":"17/04/2026","obs":"AJUSTES PÓS CALL DE BRAIN W HIKE"},{"id":10,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"copa coco bambu","tarefa":"PLANO","resp":"Gabô","contato":"Felipe","status":"Em andamento","entrega":"","obs":""},{"id":11,"cliente":"LEAPMOTOR","urgencia":"Média","projeto":"deck embaixadores","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Atendimento","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":12,"cliente":"CAJU LIMÃO","urgencia":"Média","projeto":"SP","tarefa":"curadoria","resp":"Gabô","contato":"Felipe","status":"Não iniciada","entrega":"22/04/2026","obs":""},{"id":13,"cliente":"CAJU LIMÃO","urgencia":"Média","projeto":"Inauguração","tarefa":"PLANO","resp":"Gabô","contato":"Felipe","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":14,"cliente":"OPORTUNIDADES","urgencia":"Grande","projeto":"OPORTUNIDADE","tarefa":"BOTI AWARDS","resp":"Gabô","contato":"Gustavo","status":"Não iniciada","entrega":"23/04/2026","obs":""},{"id":15,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"TIMELINE CAMPANHA","resp":"Gabô","contato":"Atendimento","status":"Aguardando","entrega":"","obs":"AGUARDANDO NOMES DISNEY"},{"id":16,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"briefing premiere","resp":"Gabô","contato":"Atendimento","status":"Não iniciada","entrega":"","obs":""},{"id":17,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"Cardapio saudável","tarefa":"CENÁRIO","resp":"Gabô","contato":"Atendimento","status":"Bloqueada","entrega":"17/04/2026","obs":""},{"id":18,"cliente":"CREAMY","urgencia":"Grande","projeto":"abril","tarefa":"MAPEAMENTO","resp":"","contato":"Gabô","status":"Bloqueada","entrega":"","obs":""},{"id":19,"cliente":"SEMANTIX","urgencia":"Média","projeto":"SEMANTIX","tarefa":"PLANO","resp":"Gabô","contato":"Felipe","status":"Bloqueada","entrega":"nova data","obs":""},{"id":20,"cliente":"SEMANTIX","urgencia":"Média","projeto":"SEMANTIX","tarefa":"MAPEAMENTO","resp":"Gabô, Will","contato":"Jess","status":"Bloqueada","entrega":"26/03/2026","obs":""},{"id":21,"cliente":"SEMANTIX","urgencia":"Média","projeto":"SEMANTIX","tarefa":"BENCHMARK","resp":"Will","contato":"Gabô","status":"Bloqueada","entrega":"27/03/2026","obs":"Pausada"},{"id":22,"cliente":"OMODA","urgencia":"Pequena","projeto":"CARNAVAL","tarefa":"STAND BY","resp":"Gabô","contato":"Felipe","status":"Bloqueada","entrega":"","obs":""},{"id":23,"cliente":"QDB","urgencia":"Pequena","projeto":"NAH CARDOSO","tarefa":"Mapeamento","resp":"Aline","contato":"Luciana","status":"Bloqueada","entrega":"02/02/2026","obs":""},{"id":24,"cliente":"PAGBANK","urgencia":"Grande","projeto":"CONCORRENCIA","tarefa":"PLANO","resp":"Gabô","contato":"Gustavo","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":25,"cliente":"BOTICÁRIO","urgencia":"Grande","projeto":"DIA DAS MAES","tarefa":"DEEP DIVE","resp":"Gabô","contato":"Gustavo","status":"Enviado","entrega":"18/03/2026","obs":""},{"id":26,"cliente":"SAMSUNG","urgencia":"Pequena","projeto":"GALAXY BUDS","tarefa":"PLANILHA","resp":"Will","contato":"Gabô","status":"Enviado","entrega":"17/03/2026","obs":""},{"id":27,"cliente":"BOTICÁRIO","urgencia":"Média","projeto":"australian gold","tarefa":"mapeamento AG","resp":"Will","contato":"Atendimento boti","status":"Enviado","entrega":"12/03/2026","obs":""},{"id":28,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"Cardapio de março","tarefa":"briefing","resp":"Gabô, Will","contato":"Felipe","status":"Enviado","entrega":"09/03/2026","obs":""},{"id":29,"cliente":"PAGBANK","urgencia":"Média","projeto":"OSCAR","tarefa":"OPORTUNIDADE","resp":"Gabô","contato":"Felipe","status":"Enviado","entrega":"04/03/2026","obs":""},{"id":30,"cliente":"AVATIM","urgencia":"Grande","projeto":"EMBAIXADORA","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Jess","status":"Enviado","entrega":"04/03/2026","obs":""},{"id":31,"cliente":"BOTICÁRIO","urgencia":"Grande","projeto":"BOTIK","tarefa":"BRIEFING","resp":"Gabô","contato":"Atendimento boti","status":"Enviado","entrega":"04/03/2026","obs":""},{"id":32,"cliente":"AVATIM","urgencia":"Grande","projeto":"DIA DA MULHER","tarefa":"MAPEAMENTO","resp":"Will, Gabô","contato":"Jess","status":"Enviado","entrega":"02/03/2026","obs":""},{"id":33,"cliente":"BOTICÁRIO","urgencia":"Média","projeto":"AON REDES","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"GI MARÇON","status":"Enviado","entrega":"02/03/2026","obs":""},{"id":34,"cliente":"LEAPMOTOR","urgencia":"Grande","projeto":"planilha","tarefa":"MAPEAMENTO AMPLIFIERS","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"17/04/2026","obs":""},{"id":35,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"BRIEFING MACRO","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"16/04/2026","obs":""},{"id":36,"cliente":"CAJU LIMÃO","urgencia":"Média","projeto":"SP","tarefa":"DISPARO UGC - MAPEAMENTO","resp":"Gabô","contato":"Felipe","status":"Feito","entrega":"15/04/2026","obs":""},{"id":37,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"RFW","tarefa":"BRIEFING GABIE FERNANDES","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"15/04/2026","obs":""},{"id":38,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"copa coco bambu","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Gabô","status":"Feito","entrega":"09/04/2026","obs":""},{"id":39,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"Cardapio saudável","tarefa":"BRIEFING","resp":"Will","contato":"Gabô","status":"Feito","entrega":"06/04/2026","obs":""},{"id":40,"cliente":"FIAT IA","urgencia":"Grande","projeto":"PESQUISA","tarefa":"Gerações PESQUISA (tiktok, ia e google)","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"06/04/2026","obs":""}];
+
+// ════════ CONFIGURAÇÃO DOS HUBS ════════
+// MUDE AS SENHAS ABAIXO CONFORME QUISER (4 dígitos cada)
+const HUBS = {
+  bc: {
+    id:"bc",
+    name:"Hub Bens de Consumo",
+    subtitle:"",
+    password:"2302",
+    color:"#F5A623",
+    gradient:"linear-gradient(135deg,#FFC943,#F5A623)",
+    team:{
+      Suelyn:  {cargo:"Gerente",      senior:"Gerência",     cor:"#8E1E3D", beyond:[
+        "Gestão do time e interlocução com diretoria",
+        "Aprovação final de entregas e relacionamento com clientes-chave",
+        "Planejamento estratégico e novos negócios",
+        "Acompanhamento de KPIs e performance do time"
+      ]},
+      Raissa:  {cargo:"Coordenadora", senior:"Coordenação",  cor:"#E93E5C", beyond:[
+        "Coordenação das demandas (priorização e distribuição)",
+        "Revisão e validação interna antes de enviar ao cliente",
+        "Alinhamentos semanais com Suelyn e com as marcas",
+        "Suporte técnico aos analistas"
+      ]},
+      Rafael:  {cargo:"Analista III", senior:"Análise",      cor:"#F5A623", beyond:null},
+      Juliana: {cargo:"Analista I",   senior:"Análise",      cor:"#FF7B3A", beyond:null}
+    },
+    seed:[
+      {id:1,  cliente:"FIAT",          urgencia:"Média", projeto:"Connect Me",               tarefa:"Mapeamento",                                             resp:"Raissa, Juliana", contato:"", status:"Em andamento",  entrega:"22/04/2026", obs:""},
+      {id:2,  cliente:"NUTREN CONTROL",urgencia:"Média", projeto:"Nutren Control",           tarefa:"Ajustes - briefings",                                    resp:"Juliana",         contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
+      {id:3,  cliente:"JEEP",          urgencia:"Média", projeto:"AON",                      tarefa:"Ajustes (inserir novos nomes)",                          resp:"Raissa",          contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
+      {id:4,  cliente:"FIAT",          urgencia:"Média", projeto:"50 anos",                  tarefa:"Mapeamento",                                             resp:"Rafael",          contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
+      {id:5,  cliente:"FIAT",          urgencia:"Média", projeto:"Por assinatura",           tarefa:"Mapeamento",                                             resp:"Raissa",          contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
+      {id:6,  cliente:"NHS",           urgencia:"Grande",projeto:"Apresentações NHS",        tarefa:"Atualizar todas (cenários + nomes + timeline)",          resp:"Raissa",          contato:"", status:"Não iniciada",  entrega:"24/04/2026", obs:"debrief 17/04"},
+      {id:7,  cliente:"BRASIL CACAU",  urgencia:"Média", projeto:"Mães",                     tarefa:"Mapeamento",                                             resp:"Rafael",          contato:"", status:"Não iniciada",  entrega:"24/04/2026", obs:"debrief 15/04"},
+      {id:8,  cliente:"NESCAU",        urgencia:"Média", projeto:"Embaixadores",             tarefa:"Briefings",                                              resp:"Juliana",         contato:"", status:"Não iniciada",  entrega:"24/04/2026", obs:""},
+      {id:9,  cliente:"BRASIL CACAU",  urgencia:"Média", projeto:"Mães",                     tarefa:"Apresentação",                                           resp:"Rafael, Raissa",  contato:"", status:"Não iniciada",  entrega:"28/04/2026", obs:""},
+      {id:10, cliente:"NESTLÉ",        urgencia:"Média", projeto:"Vila Nestlé no São João",  tarefa:"Apresentação",                                           resp:"Suelyn",          contato:"", status:"Em andamento",  entrega:"28/04/2026", obs:""},
+      {id:11, cliente:"PEUGEOT",       urgencia:"Média", projeto:"Peugeot",                  tarefa:"Apresentação",                                           resp:"Rafael, Juliana", contato:"", status:"Enviado",       entrega:"A definir",  obs:"Rafa cobrado em 07/04 e 17/04"},
+      {id:12, cliente:"BRASIL CACAU",  urgencia:"Pequena",projeto:"Sensação + Copa do mundo",tarefa:"Oportunidade",                                           resp:"",                contato:"", status:"Não iniciada",  entrega:"A definir",  obs:"All time"}
+    ]
+  },
+
+  beleza: {
+    id:"beleza",
+    name:"Hub de Beleza",
+    subtitle:"",
+    password:"5678",
+    color:"#E93E5C",
+    gradient:"linear-gradient(135deg,#FF7B3A,#E93E5C)",
+    team:{
+      Gustavo:  {cargo:"Gerente",      senior:"Gerência",    cor:"#D4A017", beyond:[
+        "Gestão do time de beleza e interlocução com diretoria",
+        "Aprovação final de entregas estratégicas",
+        "Relacionamento com clientes-chave (Grupo Boticário, Eudora)",
+        "Planejamento estratégico e novos negócios"
+      ]},
+      Giovana:  {cargo:"Supervisora",  senior:"Supervisão",  cor:"#E93E5C", beyond:[
+        "Supervisão de projetos e qualidade das entregas",
+        "Alinhamentos com clientes e ponto de contato principal",
+        "Mentoria técnica para analistas",
+        "Coberturas do Gustavo quando necessário"
+      ]},
+      Thábata:  {cargo:"Coordenadora", senior:"Coordenação", cor:"#C04E28", beyond:[
+        "Coordenação das demandas (priorização e distribuição)",
+        "Revisão e validação interna antes de enviar",
+        "Gestão de cronogramas e SLAs",
+        "Suporte técnico aos analistas"
+      ]},
+      Olivia:   {cargo:"Analista II",  senior:"Análise",     cor:"#F5A623", beyond:null},
+      Aline:    {cargo:"Analista I",   senior:"Análise",     cor:"#8E1E3D", beyond:null},
+      Nicole:   {cargo:"Analista I",   senior:"Análise",     cor:"#FF7B3A", beyond:null}
+    },
+    seed:SEED_BELEZA
+  },
+
+  nn: {
+    id:"nn",
+    name:"Hub Novos Negócios",
+    subtitle:"",
+    password:"9012",
+    color:"#FF7B3A",
+    gradient:"linear-gradient(135deg,#F5A623,#FF7B3A)",
+    team:{
+      Gustavo: {cargo:"Gerente",     senior:"Gerência",     cor:"#D4A017", beyond:[
+        "Liderança comercial e prospecção de novos clientes",
+        "Relacionamento com decisores em novos negócios",
+        "Condução de pitches e apresentações estratégicas",
+        "Aprovação de propostas e precificação"
+      ]},
+      "Gabô":  {cargo:"Especialista",senior:"Especialização",cor:"#E93E5C", beyond:[
+        "Condução técnica de pitches e propostas",
+        "Desenho de soluções customizadas por cliente",
+        "Imersão em brand/briefing de novos clientes",
+        "Suporte estratégico em novas oportunidades"
+      ]}
+    },
+    seed:SEED_NN
+  }
+};
+
+// ════════ DIRETORIA ════════
+// Mude a senha da diretoria aqui (4 dígitos)
+const DIRETORIA = {
+  id:"diretoria",
+  name:"Painel da Diretoria",
+  subtitle:"",
+  password:"2811",
+  color:"#1A1A1A",
+  gradient:"linear-gradient(135deg,#F5A623,#E93E5C)"
+};
+
+// Senha de gestão — libera Carga e Papéis dentro de qualquer hub
+// (só gerência / coordenação / supervisão têm essa senha)
+const MANAGER_PASSWORD = "2811";
+
+// Status/Urgência configs
+const STATUSES = ["Em andamento","Não iniciada","Aguardando","Bloqueada","Enviado","Feito"];
+const STATUS_BADGE = {"Em andamento":"b-and","Não iniciada":"b-ni","Aguardando":"b-ag","Bloqueada":"b-bl","Enviado":"b-env","Feito":"b-ok"};
+const STATUS_COLOR = {"Em andamento":"#7A5A00","Não iniciada":"#1A4F8A","Aguardando":"#7C3A0C","Bloqueada":"#8A1A1A","Enviado":"#4A2D8A","Feito":"#145A32"};
+const STATUS_ORDER = ["Em andamento","Aguardando","Bloqueada","Não iniciada","Enviado","Feito"];
+const URGENCIAS = ["Grande","Média","Pequena"];
+const URG_BADGE = {"Grande":"b-u-g","Média":"b-u-m","Pequena":"b-u-p"};
+
+// Data atual (ajuste aqui se quiser simular outra data)
+const TODAY = new Date();
+
+// ════════ ESTADO ════════
+let currentHub = null;
+let demands = [];
+let nextId = 1;
+let activeStatus = "all";
+let activePerson = null;
+let pendingHub = null;
+let pwdFlow = "hub";        // "hub", "diretoria", "manager"
+let pendingManagerPage = null; // "carga" ou "papeis"
+let managerUnlocked = false; // fica true depois que a senha de gestão foi digitada na sessão
+
+// ════════ LANDING ════════
+function renderLanding(){
+  const grid = document.getElementById("hubs-grid");
+  grid.innerHTML = Object.values(HUBS).map(h=>{
+    const people = Object.entries(h.team).slice(0,6);
+    return `<div class="hub-card" onclick="openHub('${h.id}')">
+      <div class="icon" style="background:${h.gradient};">${h.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()}</div>
+      <h2>${h.name}</h2>
+      <div class="people">
+        ${people.map(([n,i])=>`<div class="avatar-mini" style="background:${i.cor};" title="${n}">${n.slice(0,2).toUpperCase()}</div>`).join("")||'<span style="font-size:11px;color:rgba(255,255,255,.4);">Time vazio — adicione na aba Editar</span>'}
+      </div>
+      <div class="enter">Entrar →</div>
+    </div>`;
+  }).join("");
+
+  // Diretoria card
+  document.getElementById("diretoria-row").innerHTML = `
+    <div class="dir-card" onclick="openHub('diretoria')">
+      <div class="dir-icon">★</div>
+      <div class="dir-info">
+        <h2>${DIRETORIA.name}</h2>
+      </div>
+      <div class="dir-enter">Acesso restrito →</div>
+    </div>`;
+}
+
+// ════════ AUTH ════════
+function openHub(hubId){
+  pendingHub = hubId;
+  pwdFlow = hubId==="diretoria" ? "diretoria" : "hub";
+  const target = hubId==="diretoria" ? DIRETORIA : HUBS[hubId];
+  document.getElementById("pwd-title").textContent = target.name;
+  document.getElementById("pin-error").textContent = "";
+  document.querySelectorAll(".pin-i").forEach(i=>i.value="");
+  document.getElementById("pwd-modal").classList.add("show");
+  setTimeout(()=>document.querySelectorAll(".pin-i")[0].focus(),100);
+}
+function openManagerModal(targetPage){
+  pwdFlow = "manager";
+  pendingManagerPage = targetPage;
+  document.getElementById("pwd-title").textContent = "Área de gestão";
+  document.getElementById("pin-error").textContent = "";
+  document.querySelectorAll(".pin-i").forEach(i=>i.value="");
+  document.getElementById("pwd-modal").classList.add("show");
+  setTimeout(()=>document.querySelectorAll(".pin-i")[0].focus(),100);
+}
+function closePwdModal(){
+  document.getElementById("pwd-modal").classList.remove("show");
+  pendingHub = null;
+  pendingManagerPage = null;
+}
+function checkPwd(){
+  const pwd = [...document.querySelectorAll(".pin-i")].map(i=>i.value).join("");
+  if(pwd.length!==4){
+    document.getElementById("pin-error").textContent = "Digite os 4 dígitos";
+    return;
+  }
+  if(pwdFlow === "manager"){
+    if(pwd === MANAGER_PASSWORD){
+      managerUnlocked = true;
+      const target = pendingManagerPage;
+      closePwdModal();
+      goPage(target);
+    } else {
+      document.getElementById("pin-error").textContent = "Senha incorreta";
+      document.querySelectorAll(".pin-i").forEach(i=>i.value="");
+      document.querySelectorAll(".pin-i")[0].focus();
+    }
+    return;
+  }
+  const target = pendingHub==="diretoria" ? DIRETORIA : HUBS[pendingHub];
+  if(pwd === target.password){
+    if(pendingHub==="diretoria") enterDiretoria();
+    else enterHub(pendingHub);
+    closePwdModal();
+  } else {
+    document.getElementById("pin-error").textContent = "Senha incorreta";
+    document.querySelectorAll(".pin-i").forEach(i=>i.value="");
+    document.querySelectorAll(".pin-i")[0].focus();
+  }
+}
+// PIN auto-advance
+document.querySelectorAll(".pin-i").forEach((inp,idx,arr)=>{
+  inp.addEventListener("input",()=>{
+    inp.value = inp.value.replace(/\D/g,"");
+    if(inp.value && idx<arr.length-1) arr[idx+1].focus();
+    if(idx===arr.length-1 && arr.every(x=>x.value)) checkPwd();
+  });
+  inp.addEventListener("keydown",e=>{
+    if(e.key==="Backspace" && !inp.value && idx>0) arr[idx-1].focus();
+    if(e.key==="Enter") checkPwd();
+  });
+});
+
+function enterHub(hubId){
+  currentHub = hubId;
+  loadDemands();
+  document.getElementById("page-landing").style.display="none";
+  document.getElementById("page-hub").classList.add("show");
+  const hub = HUBS[hubId];
+  document.getElementById("topbar-title").innerHTML = hub.name.replace(hub.name.split(" ")[0],`${hub.name.split(" ")[0]} <span>${hub.name.split(" ").slice(1).join(" ")}</span>`);
+  document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".nav-tab")[0].classList.add("active");
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page-dash").classList.add("active");
+  activeStatus="all";
+  activePerson=null;
+  document.querySelectorAll("#filters-dash .chip").forEach(c=>c.classList.toggle("on", c.dataset.s==="all"));
+  renderDash();
+}
+
+function logout(){
+  currentHub = null;
+  demands = [];
+  managerUnlocked = false;
+  document.getElementById("page-hub").classList.remove("show");
+  document.getElementById("page-diretoria").classList.remove("show");
+  document.getElementById("page-landing").style.display="flex";
+}
+
+// ════════ DIRETORIA ════════
+function enterDiretoria(){
+  currentHub = "diretoria";
+  document.getElementById("page-landing").style.display="none";
+  document.getElementById("page-diretoria").classList.add("show");
+  // reset tab state
+  document.querySelectorAll("#page-diretoria .nav-tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll("#page-diretoria .nav-tab")[0].classList.add("active");
+  document.querySelectorAll("#page-diretoria .page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("dir-page-overview").classList.add("active");
+  renderDiretoria();
+}
+
+function goDirPage(name,ev){
+  document.querySelectorAll("#page-diretoria .page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll("#page-diretoria .nav-tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById("dir-page-"+name).classList.add("active");
+  if(ev && ev.target) ev.target.classList.add("active");
+  renderDiretoria();
+}
+
+function loadAllHubDemands(){
+  // Retorna [{hub, hubName, hubColor, ...demand}]
+  const all = [];
+  Object.values(HUBS).forEach(h=>{
+    let data;
+    try{
+      const saved = JSON.parse(localStorage.getItem("pub-hub-"+h.id)||"null");
+      data = (saved && Array.isArray(saved)) ? saved : h.seed;
+    } catch(e){ data = h.seed; }
+    data.forEach(d=>{
+      all.push({...d, hub:h.id, hubName:h.name, hubColor:h.color, hubTeam:h.team});
+    });
+  });
+  return all;
+}
+
+function renderDiretoria(){
+  const all = loadAllHubDemands();
+  const active = all.filter(d=>["Em andamento","Não iniciada","Aguardando","Bloqueada"].includes(d.status));
+  const atrasadas = all.filter(isLate);
+  const enviadas = all.filter(d=>d.status==="Enviado");
+  const feitas = all.filter(d=>d.status==="Feito");
+
+  // ── OVERVIEW ──
+  document.getElementById("dir-metrics").innerHTML = `
+    <div class="met"><div class="met-label">Demandas totais</div><div class="met-val">${all.length}</div><div class="met-sub">todos os hubs</div></div>
+    <div class="met"><div class="met-label">Ativas</div><div class="met-val" style="color:#BA7517;">${active.length}</div><div class="met-sub">em andamento + abertas</div></div>
+    <div class="met"><div class="met-label">Atrasadas</div><div class="met-val" style="color:#8A1A1A;">${atrasadas.length}</div><div class="met-sub">prazo vencido</div></div>
+    <div class="met"><div class="met-label">Enviadas</div><div class="met-val" style="color:#4A2D8A;">${enviadas.length}</div><div class="met-sub">aguardando aprovação</div></div>
+    <div class="met"><div class="met-label">Concluídas</div><div class="met-val" style="color:#145A32;">${feitas.length}</div><div class="met-sub">feitas</div></div>
+  `;
+
+  // Hub summary
+  document.getElementById("hubs-summary").innerHTML = Object.values(HUBS).map(h=>{
+    const hd = all.filter(d=>d.hub===h.id);
+    const act = hd.filter(d=>["Em andamento","Não iniciada","Aguardando","Bloqueada"].includes(d.status)).length;
+    const late = hd.filter(isLate).length;
+    return `<div class="hub-sum" style="border-left-color:${h.color};">
+      <h3 style="color:${h.color};">${h.name}</h3>
+      <div class="sub">${Object.keys(h.team).length} pessoa${Object.keys(h.team).length!==1?"s":""} · ${hd.length} demanda${hd.length!==1?"s":""}</div>
+      <div class="hub-sum-stats">
+        <div class="hub-sum-st"><div class="n" style="color:${h.color};">${act}</div><div class="l">ativas</div></div>
+        <div class="hub-sum-st"><div class="n" style="color:#8A1A1A;">${late}</div><div class="l">atrasadas</div></div>
+        <div class="hub-sum-st"><div class="n">${hd.length}</div><div class="l">total</div></div>
+      </div>
+    </div>`;
+  }).join("");
+
+  // Atrasadas
+  document.getElementById("dir-late-tbody").innerHTML = atrasadas.sort((a,b)=>{
+    const da = parseEntrega(a.entrega), db = parseEntrega(b.entrega);
+    return (da?da.getTime():0) - (db?db.getTime():0);
+  }).map(d=>{
+    const h = HUBS[d.hub];
+    return `<tr>
+      <td><span class="badge" style="background:${h.color}22;color:${h.color};font-weight:600;">${h.name.replace("Hub ","")}</span></td>
+      <td title="${d.cliente}">${d.cliente||"—"}</td>
+      <td title="${d.projeto}">${d.projeto||"—"}</td>
+      <td title="${d.tarefa}">${d.tarefa||"—"}</td>
+      <td>${(d.resp||"—").split(",").map(r=>r.trim()).join(", ")}</td>
+      <td style="font-size:11px;color:#8A1A1A;font-weight:600;">${d.entrega||"—"} ⚠</td>
+    </tr>`;
+  }).join("")||'<tr><td colspan="6" style="text-align:center;padding:28px;color:#9AA5B4;font-style:italic;">Nenhuma demanda atrasada — parabéns ao time!</td></tr>';
+
+  // ── PESSOAS ──
+  const peopleMap = {}; // {name: {hubs:[], total, active, breakdown, cargos}}
+  active.forEach(d=>{
+    (d.resp||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(name=>{
+      if(!peopleMap[name]) peopleMap[name] = {name, hubs:new Set(), total:0, statuses:{}, cargos:new Set()};
+      peopleMap[name].total++;
+      peopleMap[name].statuses[d.status] = (peopleMap[name].statuses[d.status]||0)+1;
+      peopleMap[name].hubs.add(d.hub);
+      if(d.hubTeam[name]) peopleMap[name].cargos.add(d.hubTeam[name].cargo);
+    });
+  });
+  // Add people with 0 active too
+  Object.values(HUBS).forEach(h=>{
+    Object.entries(h.team).forEach(([name,info])=>{
+      if(!peopleMap[name]){
+        peopleMap[name] = {name, hubs:new Set([h.id]), total:0, statuses:{}, cargos:new Set([info.cargo])};
+      } else {
+        peopleMap[name].hubs.add(h.id);
+        peopleMap[name].cargos.add(info.cargo);
+      }
+    });
+  });
+
+  const people = Object.values(peopleMap).sort((a,b)=>b.total - a.total);
+  const maxLoad = Math.max(...people.map(p=>p.total), 1);
+
+  const statusColors = {"Em andamento":"#BA7517","Não iniciada":"#378ADD","Aguardando":"#F59E0B","Bloqueada":"#E24B4A"};
+
+  document.getElementById("people-ranking").innerHTML = people.map((p,i)=>{
+    // Cor do avatar (pega do primeiro hub)
+    const hubId = [...p.hubs][0];
+    const teamInfo = HUBS[hubId]?.team[p.name];
+    const cor = teamInfo?.cor || "#6B7A8D";
+    const hubBadges = [...p.hubs].map(hid=>{
+      const h = HUBS[hid];
+      return `<span class="hub-dot" style="background:${h.color};">${h.name.replace("Hub ","")}</span>`;
+    }).join("");
+    const segs = Object.entries(p.statuses).map(([s,n])=>{
+      const pct = (n/maxLoad)*100;
+      return `<div class="bar-seg" style="width:${pct}%;background:${statusColors[s]||"#6B7A8D"};" title="${s}: ${n}">${n>=2?n:""}</div>`;
+    }).join("");
+    const loadLevel = p.total>=8?"#8A1A1A":p.total>=5?"#BA7517":p.total>=2?"#145A32":"#9AA5B4";
+
+    return `<div class="rank-row">
+      <div class="pos">${i+1}</div>
+      <div class="av" style="background:${cor};">${p.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()}</div>
+      <div class="info">
+        <div class="name">${p.name}</div>
+        <div class="meta">
+          <span>${[...p.cargos].join(", ")}</span>
+          <div class="hubs">${hubBadges}</div>
+        </div>
+      </div>
+      <div class="bar-viz">${segs||'<div style="flex:1;display:flex;align-items:center;justify-content:center;color:#9AA5B4;font-size:11px;font-style:italic;">sem carga ativa</div>'}</div>
+      <div class="totals"><div class="t-big" style="color:${loadLevel};">${p.total}</div><div class="t-label">ativa${p.total!==1?"s":""}</div></div>
+    </div>`;
+  }).join("");
+
+  // ── TIMES ──
+  const teamChartBox = document.getElementById("team-chart");
+  const hubStats = Object.values(HUBS).map(h=>{
+    const hd = all.filter(d=>d.hub===h.id);
+    const act = hd.filter(d=>["Em andamento","Não iniciada","Aguardando","Bloqueada"].includes(d.status)).length;
+    const peopleCount = Object.keys(h.team).length;
+    const avg = peopleCount>0 ? (act/peopleCount).toFixed(1) : "—";
+    return {hub:h, active:act, total:hd.length, avg, peopleCount};
+  });
+  const maxActive = Math.max(...hubStats.map(s=>s.active), 1);
+  teamChartBox.innerHTML = hubStats.map(s=>{
+    const pct = (s.active/maxActive)*100;
+    return `<div class="team-bar">
+      <div class="tb-head">
+        <span class="tb-name" style="color:${s.hub.color};">${s.hub.name}</span>
+        <span style="color:#6B7A8D;">${s.active} ativas · ${s.peopleCount} pessoa${s.peopleCount!==1?"s":""} · média ${s.avg} por pessoa</span>
+      </div>
+      <div class="tb-track">
+        <div class="tb-seg" style="width:${pct}%;background:${s.hub.gradient};">${s.active}</div>
+      </div>
+    </div>`;
+  }).join("");
+
+  document.getElementById("dir-teams-tbody").innerHTML = Object.values(HUBS).map(h=>{
+    const hd = all.filter(d=>d.hub===h.id);
+    const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0,"Feito":0};
+    hd.forEach(d=>{cnt[d.status]=(cnt[d.status]||0)+1;});
+    return `<tr>
+      <td style="font-weight:600;color:${h.color};">${h.name}</td>
+      <td style="text-align:center;${cnt["Em andamento"]?'color:#BA7517;font-weight:600;':''}">${cnt["Em andamento"]}</td>
+      <td style="text-align:center;">${cnt["Não iniciada"]}</td>
+      <td style="text-align:center;${cnt["Aguardando"]?'color:#7C3A0C;font-weight:600;':''}">${cnt["Aguardando"]}</td>
+      <td style="text-align:center;${cnt["Bloqueada"]?'color:#8A1A1A;font-weight:600;':''}">${cnt["Bloqueada"]}</td>
+      <td style="text-align:center;">${cnt["Enviado"]}</td>
+      <td style="text-align:center;color:#145A32;">${cnt["Feito"]}</td>
+      <td style="text-align:center;font-weight:700;">${hd.length}</td>
+    </tr>`;
+  }).join("");
+
+  // ── ALERTAS ──
+  const sobrecarga = people.filter(p=>p.total>=7);
+  const normal = people.filter(p=>p.total>=3 && p.total<7);
+  const baixa = people.filter(p=>p.total>0 && p.total<3);
+  const ociosas = people.filter(p=>p.total===0);
+  const comAtrasadas = {};
+  atrasadas.forEach(d=>{
+    (d.resp||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(name=>{
+      comAtrasadas[name] = (comAtrasadas[name]||0)+1;
+    });
+  });
+  const atrList = Object.entries(comAtrasadas).sort((a,b)=>b[1]-a[1]);
+
+  const renderListPeople = (arr,showVal=true) => arr.length ? arr.map(p=>{
+    const cargo = [...p.cargos].join(", ");
+    return `<li><div><div class="pname">${p.name}</div><div class="pcargo">${cargo}</div></div>${showVal?`<div class="pval">${p.total}</div>`:""}</li>`;
+  }).join("") : '<li style="color:#9AA5B4;font-style:italic;justify-content:center;">ninguém nessa categoria</li>';
+
+  document.getElementById("alerts-grid").innerHTML = `
+    <div class="alert-card red">
+      <h3>Sobrecarga <span class="count">${sobrecarga.length}</span></h3>
+      <div class="desc">7+ demandas ativas — precisa redistribuir</div>
+      <ul>${renderListPeople(sobrecarga)}</ul>
+    </div>
+    <div class="alert-card yellow">
+      <h3>Carga baixa <span class="count">${baixa.length}</span></h3>
+      <div class="desc">1-2 demandas ativas — pode absorver mais</div>
+      <ul>${renderListPeople(baixa)}</ul>
+    </div>
+    <div class="alert-card blue">
+      <h3>Ociosos <span class="count">${ociosas.length}</span></h3>
+      <div class="desc">Sem demandas ativas no momento</div>
+      <ul>${renderListPeople(ociosas,false)}</ul>
+    </div>
+    <div class="alert-card red">
+      <h3>Com atrasadas <span class="count">${atrList.length}</span></h3>
+      <div class="desc">Pessoas com entregas vencidas</div>
+      <ul>${atrList.length?atrList.map(([name,n])=>`<li><div class="pname">${name}</div><div class="pval" style="color:#8A1A1A;">${n}</div></li>`).join(""):'<li style="color:#9AA5B4;font-style:italic;justify-content:center;">ninguém atrasado</li>'}</ul>
+    </div>
+    <div class="alert-card green">
+      <h3>Carga equilibrada <span class="count">${normal.length}</span></h3>
+      <div class="desc">3-6 demandas ativas — zona saudável</div>
+      <ul>${renderListPeople(normal)}</ul>
+    </div>
+  `;
+}
+
+// Auto-atualiza diretoria quando alguém mexe num hub em outra aba
+window.addEventListener("storage", (e)=>{
+  if(currentHub==="diretoria" && e.key && e.key.startsWith("pub-hub-")){
+    renderDiretoria();
+  }
+});
+
+// ════════ DATA ════════
+function storageKey(){ return "pub-hub-"+currentHub; }
+function loadDemands(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(storageKey())||"null");
+    if(saved && Array.isArray(saved)){
+      demands = saved;
+    } else {
+      demands = JSON.parse(JSON.stringify(HUBS[currentHub].seed));
+    }
+  }catch(e){
+    demands = JSON.parse(JSON.stringify(HUBS[currentHub].seed));
+  }
+  nextId = demands.length ? Math.max(...demands.map(d=>d.id))+1 : 1;
+}
+function saveDemands(){
+  try{ localStorage.setItem(storageKey(), JSON.stringify(demands)); }catch(e){}
+}
+
+// ════════ HELPERS ════════
+function parseEntrega(s){
+  if(!s) return null;
+  const up = s.toString().toUpperCase();
+  if(up.includes("DEFINIR")||up.includes("AGUARDANDO")||up.includes("PAUSADO")||up.includes("-")&&s.length<4) return null;
+  const parts = s.split("/");
+  if(parts.length<2) return null;
+  const d = parseInt(parts[0],10), m = parseInt(parts[1],10), y = parts.length>2?parseInt(parts[2],10):TODAY.getFullYear();
+  if(isNaN(d)||isNaN(m)) return null;
+  return new Date(y, m-1, d);
+}
+function isLate(d){
+  if(d.status==="Enviado"||d.status==="Feito") return false;
+  const dt = parseEntrega(d.entrega); if(!dt) return false;
+  return dt < new Date(TODAY.getFullYear(),TODAY.getMonth(),TODAY.getDate());
+}
+function initials(n){ return n.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase(); }
+function getPeople(resp){ return (resp||"").split(",").map(x=>x.trim()).filter(Boolean); }
+function isTeamMember(name){ return !!HUBS[currentHub].team[name]; }
+
+function personTags(resp){
+  return getPeople(resp).map(r=>{
+    const p = HUBS[currentHub].team[r];
+    const cor = p?p.cor:"#6B7A8D";
+    return `<span class="tag-person" style="color:${cor};border-color:${cor}55;">${r}</span>`;
+  }).join("");
+}
+
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 1500);
+}
+
+function cycleStatus(id){
+  const d = demands.find(x=>x.id===id);
+  if(!d) return;
+  const i = STATUSES.indexOf(d.status);
+  d.status = STATUSES[(i+1)%STATUSES.length];
+  saveDemands();
+  renderDash();
+  showToast("Status → "+d.status);
+}
+
+// ════════ DASH ════════
+function renderDash(){
+  const t = HUBS[currentHub].team;
+  const anda = demands.filter(d=>d.status==="Em andamento").length;
+  const ni = demands.filter(d=>d.status==="Não iniciada").length;
+  const blog = demands.filter(d=>["Aguardando","Bloqueada"].includes(d.status)).length;
+  const atrasadas = demands.filter(isLate).length;
+  const env = demands.filter(d=>d.status==="Enviado").length;
+
+  document.getElementById("metrics").innerHTML = `
+    <div class="met"><div class="met-label">Total</div><div class="met-val">${demands.length}</div></div>
+    <div class="met"><div class="met-label">Em andamento</div><div class="met-val" style="color:#BA7517;">${anda}</div></div>
+    <div class="met"><div class="met-label">Não iniciadas</div><div class="met-val" style="color:#1A4F8A;">${ni}</div></div>
+    <div class="met"><div class="met-label">Aguardando/Bloq</div><div class="met-val" style="color:#7C3A0C;">${blog}</div></div>
+    <div class="met"><div class="met-label">Atrasadas</div><div class="met-val" style="color:#8A1A1A;">${atrasadas}</div><div class="met-sub">prazo vencido</div></div>
+  `;
+
+  // people cards
+  const pg = document.getElementById("people-grid");
+  if(Object.keys(t).length){
+    pg.innerHTML = Object.entries(t).map(([name,info])=>{
+      const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0,"Feito":0};
+      demands.forEach(d=>{ if(getPeople(d.resp).includes(name)) cnt[d.status]=(cnt[d.status]||0)+1; });
+      const ativo = cnt["Em andamento"]+cnt["Não iniciada"]+cnt["Aguardando"]+cnt["Bloqueada"];
+      const maxBar = 8;
+      const sel = activePerson===name?"active-p":"";
+      const bars = [
+        {label:"Em andamento",n:cnt["Em andamento"],color:"#BA7517"},
+        {label:"Não iniciada",n:cnt["Não iniciada"],color:"#378ADD"},
+        {label:"Aguardando",n:cnt["Aguardando"],color:"#F97316"},
+      ].filter(b=>b.n>0);
+      return `<div class="pcard ${sel}" onclick="togglePerson('${name}')">
+        <div class="pcard-head">
+          <div class="avatar" style="background:${info.cor};">${initials(name)}</div>
+          <div><div class="pcard-name">${name}</div><div class="pcard-cargo">${info.cargo}</div></div>
+        </div>
+        <div class="pcard-bars">
+          ${bars.length?bars.map(b=>`<div class="bar-row">
+            <div class="bar-label">${b.label}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,Math.round(b.n/maxBar*100))}%;background:${b.color};"></div></div>
+            <div class="bar-count">${b.n}</div>
+          </div>`).join(""):'<div style="font-size:11px;color:#9AA5B4;font-style:italic;">Sem demandas ativas</div>'}
+          <div class="bar-row" style="margin-top:6px;border-top:0.5px solid #EEE;padding-top:6px;">
+            <div class="bar-label" style="color:#9AA5B4;">Ativo</div>
+            <div class="bar-track"></div>
+            <div class="bar-count" style="font-weight:600;">${ativo}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+  } else {
+    pg.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">Nenhum time configurado nesse hub. Adicione pessoas editando o código ou crie demandas na aba Editar.</div>';
+  }
+
+  // cliente filter
+  const sel = document.getElementById("filter-cliente");
+  const cur = sel.value;
+  const clientes = [...new Set(demands.map(d=>d.cliente).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="all">Todos</option>'+clientes.map(c=>`<option value="${c}" ${c===cur?"selected":""}>${c}</option>`).join("");
+  const filterCliente = sel.value;
+
+  // table
+  const filtered = demands.filter(d=>{
+    const ms = activeStatus==="all"||d.status===activeStatus;
+    const mp = !activePerson||getPeople(d.resp).includes(activePerson);
+    const mc = filterCliente==="all"||d.cliente===filterCliente;
+    return ms && mp && mc;
+  });
+
+  const sorted = [...filtered].sort((a,b)=>{
+    const oa = STATUS_ORDER.indexOf(a.status), ob = STATUS_ORDER.indexOf(b.status);
+    if(oa !== ob) return oa - ob;
+    const da = parseEntrega(a.entrega), db = parseEntrega(b.entrega);
+    if(!da && !db) return 0;
+    if(!da) return 1;
+    if(!db) return -1;
+    return da - db;
+  });
+
+  document.getElementById("tbl-count").textContent = `${sorted.length} demanda${sorted.length!==1?"s":""}`;
+  document.getElementById("dash-tbody").innerHTML = sorted.map(d=>{
+    const late = isLate(d);
+    const sb = STATUS_BADGE[d.status]||"b-ni";
+    const ub = URG_BADGE[d.urgencia]||"b-u-m";
+    return `<tr>
+      <td title="${d.cliente}">${d.cliente||"—"}</td>
+      <td><span class="badge ${ub}">${d.urgencia||"—"}</span></td>
+      <td title="${d.projeto}">${d.projeto||"—"}</td>
+      <td title="${d.tarefa}">${d.tarefa||"—"}</td>
+      <td>${personTags(d.resp)||'<span style="color:#9AA5B4;">—</span>'}</td>
+      <td><span class="badge ${sb} clickable" onclick="cycleStatus(${d.id})" title="Clique pra avançar">${d.status}</span></td>
+      <td style="font-size:11px;color:${late?'#8A1A1A':'#6B7A8D'};font-weight:${late?'600':'400'};">${d.entrega||"—"}${late?" ⚠":""}</td>
+      <td title="${d.obs}" style="font-size:11px;color:#6B7A8D;font-style:italic;">${d.obs||"—"}</td>
+    </tr>`;
+  }).join("")||'<tr><td colspan="8" style="text-align:center;padding:28px;color:#9AA5B4;font-style:italic;">Nenhuma demanda com os filtros atuais</td></tr>';
+}
+
+function togglePerson(name){
+  activePerson = activePerson===name?null:name;
+  renderDash();
+}
+document.getElementById("filters-dash").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip");
+  if(!chip) return;
+  activeStatus = chip.dataset.s;
+  document.querySelectorAll("#filters-dash .chip").forEach(c=>c.classList.toggle("on", c.dataset.s===activeStatus));
+  renderDash();
+});
+document.getElementById("filter-cliente").addEventListener("change",renderDash);
+
+// ════════ CARGA ════════
+function renderCarga(){
+  const t = HUBS[currentHub].team;
+  const maxBar = 10;
+  const cg = document.getElementById("carga-grid");
+  if(!Object.keys(t).length){
+    cg.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">Nenhum time configurado.</div>';
+    document.getElementById("carga-tbody").innerHTML = "";
+    return;
+  }
+  cg.innerHTML = Object.entries(t).map(([name,info])=>{
+    const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0};
+    demands.forEach(d=>{ if(getPeople(d.resp).includes(name)) cnt[d.status]=(cnt[d.status]||0)+1; });
+    const ativo = cnt["Em andamento"]+cnt["Não iniciada"]+cnt["Aguardando"]+cnt["Bloqueada"];
+    const load = ativo>=8?"#8A1A1A":ativo>=5?"#7A5A00":"#145A32";
+    const sOrder = ["Em andamento","Não iniciada","Aguardando","Bloqueada","Enviado"];
+    const colors = {"Em andamento":"#BA7517","Não iniciada":"#378ADD","Aguardando":"#F97316","Bloqueada":"#E24B4A","Enviado":"#7F77DD"};
+    return `<div class="pcard">
+      <div class="pcard-head">
+        <div class="avatar" style="background:${info.cor};">${initials(name)}</div>
+        <div><div class="pcard-name">${name}</div><div class="pcard-cargo">${info.cargo}</div></div>
+      </div>
+      <div class="pcard-bars">
+        ${sOrder.map(s=>`<div class="bar-row">
+          <div class="bar-label">${s}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,Math.round(cnt[s]/maxBar*100))}%;background:${colors[s]};"></div></div>
+          <div class="bar-count">${cnt[s]}</div>
+        </div>`).join("")}
+        <div class="bar-row" style="margin-top:6px;border-top:0.5px solid #EEE;padding-top:6px;">
+          <div class="bar-label" style="font-weight:600;">Total ativo</div>
+          <div class="bar-track"></div>
+          <div class="bar-count" style="font-weight:700;color:${load};">${ativo}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  document.getElementById("carga-tbody").innerHTML = Object.entries(t).map(([name,info])=>{
+    const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0};
+    demands.forEach(d=>{ if(getPeople(d.resp).includes(name)) cnt[d.status]=(cnt[d.status]||0)+1; });
+    const ativo = cnt["Em andamento"]+cnt["Não iniciada"]+cnt["Aguardando"]+cnt["Bloqueada"];
+    const load = ativo>=8?"color:#8A1A1A":ativo>=5?"color:#7A5A00":"color:#145A32";
+    return `<tr>
+      <td style="font-weight:500;">${name}</td>
+      <td style="font-size:11px;color:#6B7A8D;">${info.cargo}</td>
+      <td style="text-align:center;${cnt["Em andamento"]?'font-weight:600;color:#BA7517;':''}">${cnt["Em andamento"]}</td>
+      <td style="text-align:center;">${cnt["Não iniciada"]}</td>
+      <td style="text-align:center;${cnt["Aguardando"]?'color:#7C3A0C;font-weight:600;':''}">${cnt["Aguardando"]}</td>
+      <td style="text-align:center;${cnt["Bloqueada"]?'color:#8A1A1A;font-weight:600;':''}">${cnt["Bloqueada"]}</td>
+      <td style="text-align:center;">${cnt["Enviado"]}</td>
+      <td style="text-align:center;font-weight:700;${load}">${ativo}</td>
+    </tr>`;
+  }).join("");
+}
+
+// ════════ PAPÉIS ════════
+function renderPapeis(){
+  const t = HUBS[currentHub].team;
+  const bg = document.getElementById("beyond-grid");
+  if(!Object.keys(t).length){
+    bg.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">Nenhum time configurado.</div>';
+    document.getElementById("papeis-tbody").innerHTML = "";
+    return;
+  }
+  bg.innerHTML = Object.entries(t).filter(([,i])=>i.beyond).map(([name,info])=>{
+    return `<div class="beyond-card">
+      <div class="h"><div class="avatar" style="background:${info.cor};width:26px;height:26px;font-size:10px;">${initials(name)}</div>${name} · ${info.cargo}</div>
+      <ul>${info.beyond.map(b=>`<li>${b}</li>`).join("")}</ul>
+    </div>`;
+  }).join("") || '<div class="empty-state" style="grid-column:1/-1;">Analistas não têm responsabilidades fixas fora do board.</div>';
+
+  document.getElementById("papeis-tbody").innerHTML = Object.entries(t).map(([name,info])=>{
+    const n = demands.filter(d=>getPeople(d.resp).includes(name)).length;
+    return `<tr>
+      <td style="font-weight:500;"><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:${info.cor};width:26px;height:26px;font-size:10px;">${initials(name)}</div>${name}</div></td>
+      <td>${info.cargo}</td>
+      <td style="font-size:11px;color:#6B7A8D;">${info.senior}</td>
+      <td style="text-align:center;">${n}</td>
+    </tr>`;
+  }).join("");
+}
+
+// ════════ EDITAR ════════
+function renderEdit(){
+  document.getElementById("edit-tbody").innerHTML = demands.map(d=>`
+    <tr data-id="${d.id}">
+      <td><input value="${(d.cliente||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'cliente',this.value)" placeholder="Cliente"></td>
+      <td><select onchange="updateField(${d.id},'urgencia',this.value)">
+        ${URGENCIAS.map(u=>`<option ${d.urgencia===u?"selected":""}>${u}</option>`).join("")}
+      </select></td>
+      <td><input value="${(d.projeto||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'projeto',this.value)" placeholder="Projeto"></td>
+      <td><input value="${(d.tarefa||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'tarefa',this.value)" placeholder="Tarefa"></td>
+      <td><input value="${(d.resp||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'resp',this.value)" placeholder="Ex: Ana, Pedro"></td>
+      <td><input value="${(d.contato||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'contato',this.value)" placeholder="Contato cliente"></td>
+      <td><select onchange="updateField(${d.id},'status',this.value)">
+        ${STATUSES.map(s=>`<option ${d.status===s?"selected":""}>${s}</option>`).join("")}
+      </select></td>
+      <td><input value="${(d.entrega||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'entrega',this.value)" placeholder="dd/mm/aaaa"></td>
+      <td><input value="${(d.obs||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'obs',this.value)" placeholder="observação"></td>
+      <td><button class="del-btn" onclick="deleteRow(${d.id})">×</button></td>
+    </tr>`).join("")||'<tr><td colspan="10" style="text-align:center;padding:28px;color:#9AA5B4;font-style:italic;">Nenhuma demanda ainda — clique em "+ Nova demanda"</td></tr>';
+}
+
+function updateField(id,field,value){
+  const d = demands.find(x=>x.id===id);
+  if(d){ d[field] = value; saveDemands(); showToast("Atualizado"); }
+}
+function addRow(){
+  demands.unshift({id:nextId++, cliente:"", urgencia:"Média", projeto:"", tarefa:"", resp:"", contato:"", status:"Não iniciada", entrega:"", obs:""});
+  saveDemands();
+  renderEdit();
+  showToast("Demanda criada");
+}
+function deleteRow(id){
+  if(!confirm("Remover esta demanda?")) return;
+  demands = demands.filter(x=>x.id!==id);
+  saveDemands();
+  renderEdit();
+  showToast("Removida");
+}
+function resetData(){
+  if(!confirm("Isso vai apagar todas as suas edições neste hub e voltar pra lista original. Continuar?")) return;
+  demands = JSON.parse(JSON.stringify(HUBS[currentHub].seed));
+  nextId = demands.length?Math.max(...demands.map(d=>d.id))+1:1;
+  saveDemands();
+  renderEdit();
+  showToast("Lista restaurada");
+}
+function exportCSV(){
+  const header = "Cliente,Urgência,Projeto,Tarefa,Responsável,Ponto de contato,Status,Entrega,Observações\n";
+  const rows = demands.map(d=>[d.cliente,d.urgencia,d.projeto,d.tarefa,d.resp,d.contato,d.status,d.entrega,d.obs].map(v=>`"${(v||"").toString().replace(/"/g,'""').replace(/\n/g," ")}"`).join(",")).join("\n");
+  const blob = new Blob(["\uFEFF"+header+rows],{type:"text/csv;charset=utf-8;"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = HUBS[currentHub].name.replace(/\s/g,"_")+".csv";
+  a.click();
+}
+
+// ════════ NAV ════════
+function goPage(name,ev){
+  // Carga e Papéis pedem senha de gestão
+  if((name==="carga"||name==="papeis") && !managerUnlocked){
+    openManagerModal(name);
+    return;
+  }
+  document.querySelectorAll("#page-hub .page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll("#page-hub .nav-tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById("page-"+name).classList.add("active");
+  // marca a aba correspondente como ativa
+  const tabsMap = {"dash":0,"carga":1,"papeis":2,"editar":3};
+  const tabs = document.querySelectorAll("#page-hub .nav-tab");
+  if(ev && ev.target) ev.target.classList.add("active");
+  else if(tabs[tabsMap[name]]) tabs[tabsMap[name]].classList.add("active");
+  if(name==="dash") renderDash();
+  if(name==="carga") renderCarga();
+  if(name==="papeis") renderPapeis();
+  if(name==="editar") renderEdit();
+}
+
+renderLanding();
+</script>
+
+</body>
+</html>
