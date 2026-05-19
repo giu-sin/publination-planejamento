@@ -5,13 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Planejamento Publination</title>
 <style>
-/* ═══════ PALETA DA MARCA ═══════
-   Pra mudar, edite os valores abaixo:
-   --brand-yellow: amarelo-laranja
-   --brand-orange: laranja médio
-   --brand-pink:   rosa-vermelho (principal)
-   --brand-dark:   preto de contraste
-*/
+/* ═══════ PALETA DA MARCA ═══════ */
 :root{
   --brand-yellow:#F5A623;
   --brand-orange:#FF7B3A;
@@ -46,7 +40,7 @@ body{font-family:'Segoe UI',-apple-system,Arial,sans-serif;background:var(--bg-a
 .hub-card .avatar-mini{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;border:2px solid #2D1A20;margin-left:-6px;}
 .hub-card .avatar-mini:first-child{margin-left:0;}
 .hub-card .enter{font-size:12px;color:var(--brand-yellow);display:flex;align-items:center;gap:6px;}
-.landing-footer{font-size:11px;color:rgba(255,255,255,.35);text-align:center;max-width:420px;line-height:1.6;margin-top:24px;}
+.landing-footer{font-size:11px;color:rgba(255,255,255,.35);text-align:center;max-width:480px;line-height:1.6;margin-top:24px;}
 .diretoria-row{display:flex;justify-content:center;margin-bottom:24px;width:100%;max-width:1000px;}
 .dir-card{background:rgba(26,26,26,.4);border:1px solid rgba(245,166,35,.3);border-radius:14px;padding:22px 28px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:20px;flex:1;max-width:680px;backdrop-filter:blur(10px);}
 .dir-card:hover{background:rgba(26,26,26,.6);border-color:rgba(233,62,92,.5);transform:translateY(-2px);}
@@ -71,6 +65,13 @@ body{font-family:'Segoe UI',-apple-system,Arial,sans-serif;background:var(--bg-a
 .btn-enter{background:var(--brand-gradient);color:#1A1A1A;font-weight:600;}
 .btn-enter:hover{filter:brightness(1.1);}
 
+/* LOADING */
+.loading-overlay{position:fixed;inset:0;background:rgba(26,26,26,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:2000;color:#fff;flex-direction:column;gap:14px;}
+.loading-overlay.show{display:flex;}
+.spinner{width:42px;height:42px;border:3px solid rgba(245,166,35,.2);border-top-color:var(--brand-yellow);border-radius:50%;animation:spin 0.9s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-msg{font-size:12px;color:rgba(255,255,255,.7);}
+
 /* HUB PAGE */
 .hub-page{display:none;}
 .hub-page.show{display:block;}
@@ -84,6 +85,8 @@ body{font-family:'Segoe UI',-apple-system,Arial,sans-serif;background:var(--bg-a
 .topbar-right{display:flex;gap:8px;align-items:center;}
 .topbar-btn{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8);border:0;padding:6px 12px;border-radius:6px;font-size:11px;cursor:pointer;}
 .topbar-btn:hover{background:rgba(255,255,255,.15);color:#fff;}
+
+.last-update{font-size:10px;color:rgba(255,255,255,.4);padding:0 8px;white-space:nowrap;}
 
 .page{display:none;padding:20px 24px;}
 .page.active{display:block;}
@@ -144,8 +147,6 @@ tr:hover td{background:#FAFBFC;}
 .b-u-m{background:#FFF3CD;color:#7A5A00;}
 .b-u-p{background:#D4EDDA;color:#145A32;}
 .tag-person{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:500;margin:1px;border:0.5px solid;}
-.badge.clickable{cursor:pointer;transition:.12s;user-select:none;}
-.badge.clickable:hover{transform:scale(1.06);box-shadow:0 1px 4px rgba(0,0,0,.15);}
 
 .section-title{font-size:11px;font-weight:600;color:#6B7A8D;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
 
@@ -156,28 +157,14 @@ tr:hover td{background:#FAFBFC;}
 .beyond-card .h{font-size:12px;font-weight:600;color:#92400E;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
 .beyond-card ul{margin:0;padding-left:18px;font-size:12px;line-height:1.65;color:#3D3929;}
 
-/* EDIT */
-.edit-toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
-.btn{padding:7px 16px;border-radius:6px;border:0.5px solid var(--border);font-size:12px;cursor:pointer;background:#fff;color:var(--text-main);font-weight:500;}
-.btn:hover{background:#FDF3E8;border-color:var(--brand-orange);color:var(--brand-pink);}
-.btn-primary{background:var(--brand-gradient);color:#1A1A1A;border-color:transparent;font-weight:600;}
-.btn-primary:hover{filter:brightness(1.05);color:#1A1A1A;}
-.edit-table-wrap{background:#fff;border-radius:10px;border:0.5px solid #DDE3EC;overflow:auto;}
-.edit-table{width:100%;border-collapse:collapse;min-width:1100px;}
-.edit-table th{background:#F8F9FB;font-size:11px;font-weight:600;color:#6B7A8D;text-align:left;padding:8px 10px;border-bottom:0.5px solid #DDE3EC;white-space:nowrap;}
-.edit-table td{padding:4px 6px;border-bottom:0.5px solid #F0F2F5;vertical-align:middle;}
-.edit-table tr:hover td{background:#FAFBFC;}
-.edit-table input,.edit-table select{width:100%;border:0.5px solid transparent;border-radius:4px;padding:4px 6px;font-size:11px;background:transparent;font-family:inherit;color:#1A2332;}
-.edit-table input:focus,.edit-table select:focus{border-color:#3A7BD5;background:#F0F6FF;outline:none;}
-.edit-table select{cursor:pointer;}
-.del-btn{width:24px;height:24px;border-radius:4px;border:none;background:#FFD6D6;color:#8A1A1A;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
-.del-btn:hover{background:#FFC0C0;}
-
 .toast{position:fixed;top:66px;right:24px;background:#1E2D40;color:#fff;padding:10px 18px;border-radius:8px;font-size:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;}
 .toast.show{opacity:1;}
+.toast.error{background:#8A1A1A;}
 
-.storage-note{background:#F0F6FF;border:0.5px solid #C7DCF0;border-radius:6px;padding:8px 12px;font-size:11px;color:#1A4F8A;margin-bottom:12px;}
 .empty-state{text-align:center;padding:40px 20px;color:#9AA5B4;font-size:12px;font-style:italic;}
+
+.info-banner{background:#F0F6FF;border:0.5px solid #C7DCF0;border-radius:8px;padding:10px 16px;font-size:12px;color:#1A4F8A;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.info-banner a{color:#1A4F8A;font-weight:600;}
 
 /* Diretoria */
 .hubs-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px;}
@@ -240,7 +227,7 @@ tr:hover td{background:#FAFBFC;}
   <div class="hubs-grid" id="hubs-grid"></div>
   <div class="diretoria-row" id="diretoria-row"></div>
   <div class="landing-footer">
-    Cada hub tem uma senha de 4 dígitos própria. Seus dados ficam salvos localmente no navegador de quem acessa.
+    Cada hub tem uma senha de 4 dígitos. Os dados são puxados em tempo real das planilhas no Google Sheets — toda vez que você editar a planilha, ao recarregar o dashboard ele já vem atualizado.
   </div>
 </div>
 
@@ -263,6 +250,12 @@ tr:hover td{background:#FAFBFC;}
   </div>
 </div>
 
+<!-- ============ LOADING ============ -->
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-msg" id="loading-msg">Buscando dados da planilha...</div>
+</div>
+
 <!-- ============ HUB PAGE ============ -->
 <div class="hub-page" id="page-hub">
   <div class="topbar">
@@ -271,14 +264,19 @@ tr:hover td{background:#FAFBFC;}
       <div class="nav-tab active" onclick="goPage('dash',event)">Dashboard</div>
       <div class="nav-tab" onclick="goPage('carga',event)">Carga</div>
       <div class="nav-tab" onclick="goPage('papeis',event)">Papéis</div>
-      <div class="nav-tab" onclick="goPage('editar',event)">Editar</div>
     </div>
     <div class="topbar-right">
-      <button class="topbar-btn" onclick="logout()">← Voltar pro Publination</button>
+      <span class="last-update" id="hub-last-update"></span>
+      <button class="topbar-btn" onclick="refreshHub()">↻ Atualizar</button>
+      <button class="topbar-btn" id="open-sheet-btn" onclick="openSheet()">📝 Abrir planilha</button>
+      <button class="topbar-btn" onclick="logout()">← Voltar</button>
     </div>
   </div>
 
   <div class="page active" id="page-dash">
+    <div class="info-banner" id="hub-info-banner">
+      Dados vivos puxados do Google Sheets. Pra editar, clique em <b>📝 Abrir planilha</b> ali em cima — as alterações aparecem aqui assim que você clicar em <b>↻ Atualizar</b>.
+    </div>
     <div class="metrics" id="metrics"></div>
     <div class="section-title">Time</div>
     <div class="people-grid" id="people-grid"></div>
@@ -296,14 +294,14 @@ tr:hover td{background:#FAFBFC;}
     </div>
     <div class="tbl-wrap">
       <div class="tbl-head">
-        <span class="tbl-head-title">Demandas <span style="font-weight:400;color:#6B7A8D;">— clique no status pra avançar</span></span>
+        <span class="tbl-head-title">Demandas</span>
         <span class="tbl-count" id="tbl-count"></span>
       </div>
       <div class="tbl-scroll">
         <table>
           <colgroup>
             <col style="width:110px"><col style="width:80px"><col style="width:190px">
-            <col style="width:190px"><col style="width:130px"><col style="width:105px"><col style="width:90px"><col style="width:140px">
+            <col style="width:200px"><col style="width:130px"><col style="width:105px"><col style="width:90px"><col style="width:160px">
           </colgroup>
           <thead><tr>
             <th>Cliente</th><th>Urgência</th><th>Projeto</th><th>Tarefa</th>
@@ -344,33 +342,6 @@ tr:hover td{background:#FAFBFC;}
       </div>
     </div>
   </div>
-
-  <div class="page" id="page-editar">
-    <div class="storage-note">Alterações ficam salvas no seu navegador. Use "Exportar CSV" pra compartilhar.</div>
-    <div class="edit-toolbar">
-      <button class="btn btn-primary" onclick="addRow()">+ Nova demanda</button>
-      <button class="btn" onclick="exportCSV()">Exportar CSV</button>
-      <button class="btn" onclick="resetData()" style="color:#8A1A1A;border-color:#FFD6D6;">Resetar</button>
-      <span style="font-size:11px;color:#6B7A8D;margin-left:8px;">Edite direto nos campos. Salva automaticamente.</span>
-    </div>
-    <div class="edit-table-wrap">
-      <table class="edit-table">
-        <thead><tr>
-          <th style="width:110px;">Cliente</th>
-          <th style="width:80px;">Urgência</th>
-          <th style="width:180px;">Projeto</th>
-          <th style="width:200px;">Tarefa</th>
-          <th style="width:140px;">Responsável</th>
-          <th style="width:120px;">Ponto contato</th>
-          <th style="width:120px;">Status</th>
-          <th style="width:95px;">Entrega</th>
-          <th style="width:180px;">Obs</th>
-          <th style="width:32px;"></th>
-        </tr></thead>
-        <tbody id="edit-tbody"></tbody>
-      </table>
-    </div>
-  </div>
 </div>
 
 <!-- ============ DIRETORIA PAGE ============ -->
@@ -384,7 +355,8 @@ tr:hover td{background:#FAFBFC;}
       <div class="nav-tab" onclick="goDirPage('alerts',event)">Alertas</div>
     </div>
     <div class="topbar-right">
-      <button class="topbar-btn" onclick="renderDiretoria()">↻ Atualizar</button>
+      <span class="last-update" id="dir-last-update"></span>
+      <button class="topbar-btn" onclick="refreshDiretoria()">↻ Atualizar</button>
       <button class="topbar-btn" onclick="logout()">← Voltar</button>
     </div>
   </div>
@@ -434,22 +406,56 @@ tr:hover td{background:#FAFBFC;}
 <div class="toast" id="toast">Salvo!</div>
 
 <script>
-// ════════ SEED BELEZA (dados reais da planilha) ════════
-const SEED_BELEZA = [{"id":1,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"NATAL","tarefa":"filtro forms UGC","resp":"Gustavo, Aline","contato":"Juju","status":"Bloqueada","entrega":"26/11/2025","obs":"aguardando retorno da isa"},{"id":2,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"CBEM CEREJA DE FASES","tarefa":"estudo big name","resp":"Aline, Thábata","contato":"Isabella","status":"Bloqueada","entrega":"A definir","obs":"[NSPA ORQUÍDEA LUMIÉRE] MAPEAMENTO BIG NAMES_PUBLINATION_V1 formato pra replicar"},{"id":3,"cliente":"QDB","urgencia":"Pequena","projeto":"NAH CARDOSO","tarefa":"Mapeamento","resp":"Aline","contato":"Luciana","status":"Bloqueada","entrega":"02/02/2026","obs":""},{"id":4,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"THE BLEND","tarefa":"Mapeamento Mailing","resp":"Olivia","contato":"Regiane","status":"Bloqueada","entrega":"08/04/2026","obs":""},{"id":5,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"THE BLEND","tarefa":"SELEÇÃO DE UGCS","resp":"Olivia","contato":"Regiane","status":"Bloqueada","entrega":"13/04/2026","obs":""},{"id":6,"cliente":"EUDORA","urgencia":"Grande","projeto":"MEGA PROMO","tarefa":"UGC","resp":"Aline","contato":"Radi","status":"Em andamento","entrega":"22/04/2026","obs":""},{"id":7,"cliente":"EUDORA","urgencia":"Grande","projeto":"BOND RESET","tarefa":"Short List","resp":"Giovana","contato":"Radi","status":"Em andamento","entrega":"22/04/2026","obs":""},{"id":8,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BBX","tarefa":"Mapeamento Mães","resp":"Olivia","contato":"Regiane","status":"Em andamento","entrega":"22/04/2026","obs":""},{"id":9,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"CBEM CARAMELO","tarefa":"Briefing Story","resp":"Olivia","contato":"Juju","status":"Não iniciada","entrega":"22/04/2026","obs":""},{"id":10,"cliente":"QDB","urgencia":"Média","projeto":"FRIENDS","tarefa":"Mapeamento","resp":"Nicole","contato":"Luciana","status":"Em andamento","entrega":"23/04/2026","obs":""},{"id":11,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"Briefing Allan Vaz","resp":"Giovana","contato":"Nicole","status":"Não iniciada","entrega":"23/04/2026","obs":""},{"id":12,"cliente":"VULT","urgencia":"Média","projeto":"C2+C3","tarefa":"Plano Integrado Messs","resp":"Thábata","contato":"Kimberly Alves","status":"Em andamento","entrega":"23/04/2026","obs":""},{"id":13,"cliente":"EUDORA","urgencia":"Média","projeto":"BOND RESET","tarefa":"Mapeamento apresentação","resp":"Olivia","contato":"Radi","status":"Não iniciada","entrega":"23/04/2026","obs":""},{"id":14,"cliente":"EUDORA","urgencia":"Média","projeto":"ROYALS","tarefa":"Ajustes V2","resp":"Thábata","contato":"Radi","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":15,"cliente":"MARY KAY","urgencia":"Média","projeto":"MÁSCARA GREAT HEIGHTS","tarefa":"Plano","resp":"Aline","contato":"Kimberly Alves","status":"Em andamento","entrega":"24/04/2026","obs":""},{"id":16,"cliente":"LICENCIADAS","urgencia":"Média","projeto":"PAMPERS","tarefa":"Plano AON","resp":"Olivia","contato":"Geovanna","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":17,"cliente":"GRUPO GB","urgencia":"Pequena","projeto":"BBX","tarefa":"Briefing Mães","resp":"Nicole","contato":"Regiane","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":18,"cliente":"EUDORA","urgencia":"Média","projeto":"NUTRI DIAMONDS","tarefa":"V2 | Plano Integrado","resp":"Thábata","contato":"Radi","status":"Não iniciada","entrega":"27/04/2026","obs":""},{"id":19,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"NATIVA SPA CRÈME PERFUMÉE","tarefa":"V2 Integrada","resp":"Aline","contato":"Juju","status":"Não iniciada","entrega":"27/04/2026","obs":""},{"id":20,"cliente":"EUDORA","urgencia":"Média","projeto":"CLUB 6 EDP","tarefa":"Integração V1","resp":"Olivia","contato":"Giovanna Traldi","status":"Não iniciada","entrega":"28/04/2026","obs":""},{"id":21,"cliente":"OPORTUNIDADE","urgencia":"Pequena","projeto":"99","tarefa":"Briefing macro","resp":"Nicole","contato":"Kimberly Alves","status":"Não iniciada","entrega":"28/04/2026","obs":""},{"id":22,"cliente":"VULT","urgencia":"Média","projeto":"SOCIAL PULSE","tarefa":"Entrega","resp":"","contato":"","status":"Não iniciada","entrega":"29/04/2026","obs":""},{"id":23,"cliente":"EUDORA","urgencia":"Média","projeto":"ATHLEISURE","tarefa":"Plano integrado V2","resp":"Thábata","contato":"Radi","status":"Não iniciada","entrega":"30/04/2026","obs":""},{"id":24,"cliente":"EUDORA","urgencia":"Média","projeto":"EDP","tarefa":"Mapeamento","resp":"Aline","contato":"","status":"Não iniciada","entrega":"30/04/2026","obs":""},{"id":25,"cliente":"EUDORA","urgencia":"Média","projeto":"EDP","tarefa":"Integrado","resp":"Aline","contato":"Radi","status":"Não iniciada","entrega":"30/04/2026","obs":""},{"id":26,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"Regional - Fluxo de loja","tarefa":"Plano AON","resp":"Giovana","contato":"Gabi Maia","status":"Não iniciada","entrega":"11/05/2026","obs":""},{"id":27,"cliente":"VULT","urgencia":"Média","projeto":"C04 MAKE","tarefa":"Plano integrado","resp":"","contato":"Kimberly Alves","status":"Não iniciada","entrega":"12/05/2026","obs":""},{"id":28,"cliente":"OPORTUNIDADE","urgencia":"Média","projeto":"IMERSÃO","tarefa":"Novas oportunidades","resp":"Aline","contato":"","status":"Bloqueada","entrega":"PAUSADO","obs":""},{"id":29,"cliente":"OPORTUNIDADE","urgencia":"Média","projeto":"SALÃO 99","tarefa":"Briefing Macro","resp":"Aline","contato":"Kimberly Alves","status":"Aguardando","entrega":"AGUARDANDO","obs":""},{"id":30,"cliente":"EUDORA","urgencia":"Média","projeto":"BOND RESET","tarefa":"Integração V1 (GERAL CAMPANHA)","resp":"Olivia","contato":"Radi","status":"Não iniciada","entrega":"aguardando","obs":""},{"id":31,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"OPORTUNIDADE WSL","tarefa":"PLANO","resp":"","contato":"Juju","status":"Não iniciada","entrega":"17/04/2026","obs":""},{"id":32,"cliente":"EUDORA","urgencia":"Grande","projeto":"DIA DAS MÃES","tarefa":"Briefing regional","resp":"Thábata","contato":"Radi","status":"Enviado","entrega":"22/04/2026","obs":""},{"id":33,"cliente":"EUDORA","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Briefing individual","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"17/04/2026","obs":""},{"id":34,"cliente":"O.U.I","urgencia":"Pequena","projeto":"DIA DAS MÃES","tarefa":"mapeamento conversão","resp":"Gustavo","contato":"Giovanna Traldi","status":"Enviado","entrega":"17/04/2026","obs":""},{"id":35,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"Mapeamento Regional","resp":"Giovana","contato":"Nicole","status":"Enviado","entrega":"16/04/2026","obs":""},{"id":36,"cliente":"EUDORA","urgencia":"Pequena","projeto":"BOND RESET","tarefa":"Briefing de Stories","resp":"Aline","contato":"Radi","status":"Enviado","entrega":"14/04/2026","obs":""},{"id":37,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BBX","tarefa":"Briefing Aniversário","resp":"Olivia","contato":"Regiane","status":"Enviado","entrega":"13/04/2026","obs":""},{"id":38,"cliente":"EUDORA","urgencia":"Média","projeto":"DIABO VESTE PRADA","tarefa":"Plano integrado V4","resp":"Aline","contato":"Radi","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":39,"cliente":"EUDORA","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Mapeamento influs + ugc","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":40,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"FLORATTA ROSÉ SUCRÉE","tarefa":"Briefing 2ª semana","resp":"Aline","contato":"Juju","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":41,"cliente":"QDB","urgencia":"Pequena","projeto":"QDB SERVIÇOS DE LOJA","tarefa":"Mapeamento","resp":"Aline, Gustavo","contato":"Luciana","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":42,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CBEM CARAMELO","tarefa":"Briefing stories","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":43,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"FLORATTA ROSÉ SUCRÉE","tarefa":"Briefing 3ª semana","resp":"Aline","contato":"Juju","status":"Enviado","entrega":"10/04/2026","obs":""},{"id":44,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"DIA DAS MÃES","tarefa":"One page","resp":"Giovana","contato":"Juju","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":45,"cliente":"EUDORA","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Briefing Macro","resp":"Thábata","contato":"Radi","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":46,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"FLORATTA ROSÉ SUCRÉE","tarefa":"Briefing 1ª semana","resp":"Aline","contato":"Juju","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":47,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"CBEM CARAMELO","tarefa":"Briefing macro","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"08/04/2026","obs":""},{"id":48,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"C13 - ZAAD","tarefa":"Apresentação - Mapeamento BIG NAMES","resp":"Thábata","contato":"Juju","status":"Enviado","entrega":"08/04/2026","obs":""},{"id":49,"cliente":"VULT","urgencia":"Média","projeto":"OPORTUNIDADES BBB26","tarefa":"Diagnóstico","resp":"Aline","contato":"Kimberly Alves","status":"Enviado","entrega":"08/04/2026","obs":""},{"id":50,"cliente":"EUDORA","urgencia":"Pequena","projeto":"BOND RESET","tarefa":"Mapeamento (poucos nomes)","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"07/04/2026","obs":""},{"id":51,"cliente":"EUDORA","urgencia":"Pequena","projeto":"BOND RESET","tarefa":"Integração V1 - diária na fábrica","resp":"Olivia","contato":"Radi","status":"Enviado","entrega":"07/04/2026","obs":""},{"id":52,"cliente":"EUDORA","urgencia":"Média","projeto":"DIAS DAS MÃES","tarefa":"Mapeamento fechado (ugc+clusters)","resp":"Aline, Giovana","contato":"Radi","status":"Enviado","entrega":"06/04/2026","obs":""},{"id":53,"cliente":"VULT","urgencia":"Pequena","projeto":"BATON","tarefa":"Mapeamento v2","resp":"Thábata","contato":"Kimberly Alves","status":"Enviado","entrega":"02/04/2026","obs":""},{"id":54,"cliente":"EUDORA","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"Plano v3","resp":"Aline","contato":"Radi","status":"Enviado","entrega":"31/03/2026","obs":""},{"id":55,"cliente":"O.U.I","urgencia":"Pequena","projeto":"UGC/NANO/MICRO MON AMIE","tarefa":"Formulário","resp":"Giovana","contato":"Giovanna Traldi","status":"Enviado","entrega":"30/03/2026","obs":""},{"id":56,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"NSPA Crème Parfumée","tarefa":"Mapeamento","resp":"Gustavo, Giovana","contato":"Juju","status":"Enviado","entrega":"30/03/2026","obs":""},{"id":57,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"planejamento V2","resp":"Giovana, Olivia","contato":"Juju","status":"Enviado","entrega":"27/03/2026","obs":""},{"id":58,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Briefings Individuais","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"26/03/2026","obs":"Nomes a confirmar"},{"id":59,"cliente":"EUDORA","urgencia":"Média","projeto":"NOMES REGIONAIS","tarefa":"Apresentação do Mapeamento","resp":"Thábata","contato":"Giovanna Traldi","status":"Enviado","entrega":"26/03/2026","obs":""},{"id":60,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"THE BLEND","tarefa":"Briefing","resp":"Olivia","contato":"Regiane","status":"Enviado","entrega":"25/03/2026","obs":""},{"id":61,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"C6 | CBEM CARAMELO","tarefa":"Mapeamento","resp":"Olivia","contato":"Juju","status":"Enviado","entrega":"24/03/2026","obs":""},{"id":62,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"ajustes","resp":"Olivia","contato":"Heloisa","status":"Enviado","entrega":"24/03/2026","obs":""},{"id":63,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BOTI BABY LUA","tarefa":"ajustes","resp":"Aline","contato":"Arycia","status":"Enviado","entrega":"24/03/2026","obs":""},{"id":64,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BOTI BABY LUA","tarefa":"BRIEFING AJUSTES","resp":"Thábata","contato":"Heloisa","status":"Enviado","entrega":"23/03/2026","obs":""},{"id":65,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Briefings Individuais","resp":"Thábata","contato":"Arycia","status":"Enviado","entrega":"23/03/2026","obs":""},{"id":66,"cliente":"BELEZA NA WEB","urgencia":"Média","projeto":"BELEZA EXPERIENCE | MC","tarefa":"Mapeamento","resp":"Giovana, Gustavo","contato":"Luciana","status":"Enviado","entrega":"23/03/2026","obs":""},{"id":67,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Ajustes Mapeamento","resp":"Olivia","contato":"Gabi","status":"Enviado","entrega":"20/03/2026","obs":""},{"id":68,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"NSPA","tarefa":"Ajustes Briefing","resp":"Aline","contato":"Isabella","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":69,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"BOTI SÃO JOÃO","tarefa":"Análise João Gomes","resp":"Aline","contato":"Bruna Sinhorini","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":70,"cliente":"EUDORA","urgencia":"Média","projeto":"NUTRI DIAMONDS","tarefa":"Mapeamento","resp":"Olivia, Thábata","contato":"","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":71,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"CLASH","tarefa":"Briefing Macro","resp":"Thábata","contato":"Gabi","status":"Enviado","entrega":"19/03/2026","obs":""},{"id":72,"cliente":"MARY KAY","urgencia":"Média","projeto":"RETINOL SKINCARE","tarefa":"Mapeamento","resp":"Giovana, Nicole","contato":"Narda","status":"Feito","entrega":"17/04/2026","obs":""},{"id":73,"cliente":"MARY KAY","urgencia":"Média","projeto":"RETINOL SKINCARE","tarefa":"Plano","resp":"Giovana, Nicole","contato":"Narda","status":"Feito","entrega":"17/04/2026","obs":""},{"id":74,"cliente":"EUDORA","urgencia":"Média","projeto":"ROYALS","tarefa":"V2 Integrada","resp":"Thábata","contato":"Radi","status":"Feito","entrega":"17/04/2026","obs":""},{"id":75,"cliente":"EUDORA","urgencia":"Média","projeto":"MEGA PROMO","tarefa":"V1 Integrado","resp":"Aline, Thábata","contato":"Radi","status":"Feito","entrega":"17/04/2026","obs":""},{"id":76,"cliente":"EUDORA","urgencia":"Grande","projeto":"MEGA PROMO","tarefa":"Mapeamento","resp":"Olivia, Nicole, Aline","contato":"Radi","status":"Feito","entrega":"16/04/2026","obs":""},{"id":77,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"AON SERVIÇO DE LOJA 2026","tarefa":"Planejamento V3","resp":"Olivia","contato":"Nicole","status":"Feito","entrega":"16/04/2026","obs":""},{"id":78,"cliente":"EUDORA","urgencia":"Pequena","projeto":"ROYALS","tarefa":"Mapeamento influs Paris + Casais TikTok","resp":"Olivia","contato":"Radi","status":"Feito","entrega":"15/04/2026","obs":""},{"id":79,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"MALBEC PURE GOLD","tarefa":"V1 Integrado","resp":"Giovana","contato":"Juju","status":"Feito","entrega":"15/04/2026","obs":""},{"id":80,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"C06/26 | CASA 214 - FIGO MAGNIFÍCO","tarefa":"Mapeamento","resp":"Gustavo","contato":"Juju","status":"Feito","entrega":"15/04/2026","obs":""},{"id":81,"cliente":"EUDORA","urgencia":"Média","projeto":"BOND RESET","tarefa":"Mapeamento Nomes Internacionais","resp":"Olivia","contato":"Radi","status":"Feito","entrega":"15/04/2026","obs":"BOND | BRIEFING CELEB BIG NAME"},{"id":82,"cliente":"VULT","urgencia":"Média","projeto":"C2","tarefa":"Plano de influencia","resp":"Thábata","contato":"Kimberly Alves","status":"Feito","entrega":"15/04/2026","obs":""},{"id":83,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"BBX","tarefa":"Briefing Promoção","resp":"Olivia","contato":"Regiane","status":"Feito","entrega":"14/04/2026","obs":""},{"id":84,"cliente":"VULT","urgencia":"Média","projeto":"OPORTUNIDADES BBB26","tarefa":"PR STUNT","resp":"Aline","contato":"Kimberly Alves","status":"Feito","entrega":"14/04/2026","obs":""},{"id":85,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"MALBEC PURE GOLD","tarefa":"mapeamento","resp":"Giovana, Thábata","contato":"Juju","status":"Feito","entrega":"13/04/2026","obs":""},{"id":86,"cliente":"QDB","urgencia":"Pequena","projeto":"ASIAN BEAUTY","tarefa":"Mapeamento","resp":"Thábata","contato":"Luciana","status":"Feito","entrega":"13/04/2026","obs":""},{"id":87,"cliente":"EUDORA","urgencia":"Grande","projeto":"DIA DAS MÃES","tarefa":"Ajustes Briefing Eudora","resp":"Thábata","contato":"Radi","status":"Feito","entrega":"13/04/2026","obs":""},{"id":88,"cliente":"EUDORA","urgencia":"Média","projeto":"ATHLEISURE","tarefa":"Mapeamento","resp":"Giovana, Gustavo","contato":"Radi","status":"Feito","entrega":"10/04/2026","obs":""},{"id":89,"cliente":"EUDORA","urgencia":"Média","projeto":"ATHLEISURE","tarefa":"Plano integrado V1","resp":"Thábata","contato":"Radi","status":"Feito","entrega":"10/04/2026","obs":""},{"id":90,"cliente":"O BOTICÁRIO","urgencia":"Pequena","projeto":"MAKE B.","tarefa":"Ajustes V2","resp":"Olivia","contato":"Isabella","status":"Feito","entrega":"09/04/2026","obs":""},{"id":91,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"DIA DAS MÃES","tarefa":"Briefing macro","resp":"Giovana","contato":"Isabella","status":"Feito","entrega":"09/04/2026","obs":""}];
+// ════════════════════════════════════════════════════════════════
+//  CONFIGURAÇÃO — EDITE AQUI
+// ════════════════════════════════════════════════════════════════
+//
+//  1) URLs DOS CSVs:
+//     Pra cada planilha, vai em Arquivo → Compartilhar → Publicar na web
+//     Escolhe "Valores separados por vírgula (.csv)" e copia a URL aqui.
+//     Tem um guia passo a passo no arquivo COMO_PUBLICAR.md
+//
+//  2) SENHAS:
+//     Mude as 4 senhas abaixo (cada uma tem 4 dígitos).
+//     Compartilhe só a senha do hub com cada time.
+//
+// ════════════════════════════════════════════════════════════════
 
-// ════════ SEED NOVOS NEGÓCIOS (dados reais da planilha [NN] PAUTA & CRONOGRAMA) ════════
-const SEED_NN = [{"id":1,"cliente":"O BOTICÁRIO","urgencia":"Grande","projeto":"NATAL","tarefa":"filtro forms UGC","resp":"Gustavo, Aline","contato":"Juju","status":"Bloqueada","entrega":"26/11/2025","obs":"aguardando retorno da isa"},{"id":2,"cliente":"O BOTICÁRIO","urgencia":"Média","projeto":"CBEM CEREJA DE FASES","tarefa":"estudo big name","resp":"Aline, Thábata","contato":"Isabella","status":"Bloqueada","entrega":"A definir","obs":"[NSPA ORQUÍDEA LUMIÉRE] MAPEAMENTO BIG NAMES_PUBLINATION_V1 formato pra replicar"},{"id":3,"cliente":"VB REFRESCA","urgencia":"Média","projeto":"Pós carnaval PL","tarefa":"briefing","resp":"Gabô","contato":"","status":"Bloqueada","entrega":"","obs":""},{"id":4,"cliente":"AVATIM","urgencia":"Grande","projeto":"DIA DA MULHER","tarefa":"BRIEFING DIA DA MULHER","resp":"Gabô","contato":"Jess","status":"Bloqueada","entrega":"04/03/2026","obs":""},{"id":5,"cliente":"OMODA","urgencia":"Grande","projeto":"CONCORRENCIA","tarefa":"Plano","resp":"Gabô","contato":"Gustavo","status":"Bloqueada","entrega":"16/03/2026","obs":""},{"id":6,"cliente":"QI MARKETING | CENTRO CELL","urgencia":"Média","projeto":"fluxo loja","tarefa":"MAPEAMENTO REGIONAL","resp":"Gabô","contato":"Felipe","status":"Aguardando","entrega":"10/04/2026","obs":""},{"id":7,"cliente":"QI MARKETING | CENTRO CELL","urgencia":"Média","projeto":"PDV","tarefa":"MAPEAMENTO CELEBRIDADE","resp":"Gabô","contato":"Felipe","status":"Aguardando","entrega":"10/04/2026","obs":""},{"id":8,"cliente":"CAJU LIMÃO","urgencia":"Grande","projeto":"BSB","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Felipe","status":"Em andamento","entrega":"15/04/2026","obs":""},{"id":9,"cliente":"OPORTUNIDADES","urgencia":"Grande","projeto":"OPORTUNIDADE","tarefa":"WSL","resp":"Gabô","contato":"Gustavo","status":"Em andamento","entrega":"17/04/2026","obs":"AJUSTES PÓS CALL DE BRAIN W HIKE"},{"id":10,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"copa coco bambu","tarefa":"PLANO","resp":"Gabô","contato":"Felipe","status":"Em andamento","entrega":"","obs":""},{"id":11,"cliente":"LEAPMOTOR","urgencia":"Média","projeto":"deck embaixadores","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Atendimento","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":12,"cliente":"CAJU LIMÃO","urgencia":"Média","projeto":"SP","tarefa":"curadoria","resp":"Gabô","contato":"Felipe","status":"Não iniciada","entrega":"22/04/2026","obs":""},{"id":13,"cliente":"CAJU LIMÃO","urgencia":"Média","projeto":"Inauguração","tarefa":"PLANO","resp":"Gabô","contato":"Felipe","status":"Não iniciada","entrega":"24/04/2026","obs":""},{"id":14,"cliente":"OPORTUNIDADES","urgencia":"Grande","projeto":"OPORTUNIDADE","tarefa":"BOTI AWARDS","resp":"Gabô","contato":"Gustavo","status":"Não iniciada","entrega":"23/04/2026","obs":""},{"id":15,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"TIMELINE CAMPANHA","resp":"Gabô","contato":"Atendimento","status":"Aguardando","entrega":"","obs":"AGUARDANDO NOMES DISNEY"},{"id":16,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"briefing premiere","resp":"Gabô","contato":"Atendimento","status":"Não iniciada","entrega":"","obs":""},{"id":17,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"Cardapio saudável","tarefa":"CENÁRIO","resp":"Gabô","contato":"Atendimento","status":"Bloqueada","entrega":"17/04/2026","obs":""},{"id":18,"cliente":"CREAMY","urgencia":"Grande","projeto":"abril","tarefa":"MAPEAMENTO","resp":"","contato":"Gabô","status":"Bloqueada","entrega":"","obs":""},{"id":19,"cliente":"SEMANTIX","urgencia":"Média","projeto":"SEMANTIX","tarefa":"PLANO","resp":"Gabô","contato":"Felipe","status":"Bloqueada","entrega":"nova data","obs":""},{"id":20,"cliente":"SEMANTIX","urgencia":"Média","projeto":"SEMANTIX","tarefa":"MAPEAMENTO","resp":"Gabô, Will","contato":"Jess","status":"Bloqueada","entrega":"26/03/2026","obs":""},{"id":21,"cliente":"SEMANTIX","urgencia":"Média","projeto":"SEMANTIX","tarefa":"BENCHMARK","resp":"Will","contato":"Gabô","status":"Bloqueada","entrega":"27/03/2026","obs":"Pausada"},{"id":22,"cliente":"OMODA","urgencia":"Pequena","projeto":"CARNAVAL","tarefa":"STAND BY","resp":"Gabô","contato":"Felipe","status":"Bloqueada","entrega":"","obs":""},{"id":23,"cliente":"QDB","urgencia":"Pequena","projeto":"NAH CARDOSO","tarefa":"Mapeamento","resp":"Aline","contato":"Luciana","status":"Bloqueada","entrega":"02/02/2026","obs":""},{"id":24,"cliente":"PAGBANK","urgencia":"Grande","projeto":"CONCORRENCIA","tarefa":"PLANO","resp":"Gabô","contato":"Gustavo","status":"Enviado","entrega":"09/04/2026","obs":""},{"id":25,"cliente":"BOTICÁRIO","urgencia":"Grande","projeto":"DIA DAS MAES","tarefa":"DEEP DIVE","resp":"Gabô","contato":"Gustavo","status":"Enviado","entrega":"18/03/2026","obs":""},{"id":26,"cliente":"SAMSUNG","urgencia":"Pequena","projeto":"GALAXY BUDS","tarefa":"PLANILHA","resp":"Will","contato":"Gabô","status":"Enviado","entrega":"17/03/2026","obs":""},{"id":27,"cliente":"BOTICÁRIO","urgencia":"Média","projeto":"australian gold","tarefa":"mapeamento AG","resp":"Will","contato":"Atendimento boti","status":"Enviado","entrega":"12/03/2026","obs":""},{"id":28,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"Cardapio de março","tarefa":"briefing","resp":"Gabô, Will","contato":"Felipe","status":"Enviado","entrega":"09/03/2026","obs":""},{"id":29,"cliente":"PAGBANK","urgencia":"Média","projeto":"OSCAR","tarefa":"OPORTUNIDADE","resp":"Gabô","contato":"Felipe","status":"Enviado","entrega":"04/03/2026","obs":""},{"id":30,"cliente":"AVATIM","urgencia":"Grande","projeto":"EMBAIXADORA","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Jess","status":"Enviado","entrega":"04/03/2026","obs":""},{"id":31,"cliente":"BOTICÁRIO","urgencia":"Grande","projeto":"BOTIK","tarefa":"BRIEFING","resp":"Gabô","contato":"Atendimento boti","status":"Enviado","entrega":"04/03/2026","obs":""},{"id":32,"cliente":"AVATIM","urgencia":"Grande","projeto":"DIA DA MULHER","tarefa":"MAPEAMENTO","resp":"Will, Gabô","contato":"Jess","status":"Enviado","entrega":"02/03/2026","obs":""},{"id":33,"cliente":"BOTICÁRIO","urgencia":"Média","projeto":"AON REDES","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"GI MARÇON","status":"Enviado","entrega":"02/03/2026","obs":""},{"id":34,"cliente":"LEAPMOTOR","urgencia":"Grande","projeto":"planilha","tarefa":"MAPEAMENTO AMPLIFIERS","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"17/04/2026","obs":""},{"id":35,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"DIABO VESTE PRADA","tarefa":"BRIEFING MACRO","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"16/04/2026","obs":""},{"id":36,"cliente":"CAJU LIMÃO","urgencia":"Média","projeto":"SP","tarefa":"DISPARO UGC - MAPEAMENTO","resp":"Gabô","contato":"Felipe","status":"Feito","entrega":"15/04/2026","obs":""},{"id":37,"cliente":"STARBUCKS","urgencia":"Grande","projeto":"RFW","tarefa":"BRIEFING GABIE FERNANDES","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"15/04/2026","obs":""},{"id":38,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"copa coco bambu","tarefa":"MAPEAMENTO","resp":"Gabô","contato":"Gabô","status":"Feito","entrega":"09/04/2026","obs":""},{"id":39,"cliente":"COCO BAMBU","urgencia":"Média","projeto":"Cardapio saudável","tarefa":"BRIEFING","resp":"Will","contato":"Gabô","status":"Feito","entrega":"06/04/2026","obs":""},{"id":40,"cliente":"FIAT IA","urgencia":"Grande","projeto":"PESQUISA","tarefa":"Gerações PESQUISA (tiktok, ia e google)","resp":"Gabô","contato":"Atendimento","status":"Feito","entrega":"06/04/2026","obs":""}];
+const CONFIG = {
+  bc: {
+    csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzok_W0wsoc6vWsMKCNSmnb0xtcQVVxHU3Z9qVzOKR3heSYqldHXtN6Z9UJUHGUzSXDI6cSoP1kiI7/pub?gid=311752661&single=true&output=csv",
+    sheetUrl: "https://docs.google.com/spreadsheets/d/1HwOrigWYuuhvTRKJtWSGDYTzaP2PjC5CB0_zB8YaLao/edit",
+    password: "2302"
+  },
+  beleza: {
+    csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoPwAHNyoPZ8jWv6H_DZNSbJ81V2WhC9k2bRS1EcaDqWWjD9aChQvXCJawRU1kkG1GDPatW31aFDlw/pub?gid=1074948123&single=true&output=csv",
+    sheetUrl: "https://docs.google.com/spreadsheets/d/1ig_pyVNhP0cVCTWhEKTGABbakkbaIlg3FIrse57t0ok/edit",
+    password: "5678"
+  },
+  nn: {
+    csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-I38RR58BDSKnXS3kB0UayYeC3CQ3tvhxN1SEIGb_GG_lYAtfotCqpk5T7w5UNlYt0VP5XckS4qPB/pub?gid=1074948123&single=true&output=csv",
+    sheetUrl: "https://docs.google.com/spreadsheets/d/1D1OlyAoGjxOedVXB2Q0WCthdyyzGC68RN8BlDco0nNk/edit",
+    password: "9012"
+  },
+  diretoria: {
+    password: "2811"
+  }
+};
 
-// ════════ CONFIGURAÇÃO DOS HUBS ════════
-// MUDE AS SENHAS ABAIXO CONFORME QUISER (4 dígitos cada)
+// ════════════════════════════════════════════════════════════════
+//  TIME (metadata: cargos, cores, responsabilidades além do board)
+//  Edite aqui pra ajustar o time de cada hub.
+// ════════════════════════════════════════════════════════════════
+
 const HUBS = {
   bc: {
     id:"bc",
     name:"Hub Bens de Consumo",
-    subtitle:"",
-    password:"2302",
+    password:CONFIG.bc.password,
     color:"#F5A623",
     gradient:"linear-gradient(135deg,#FFC943,#F5A623)",
+    // Apelidos usados na planilha (chave) → nome canônico do time (valor)
+    aliases:{"Su":"Suelyn","Rai":"Raissa","Rafa":"Rafael","Ju":"Juliana"},
     team:{
       Suelyn:  {cargo:"Gerente",      senior:"Gerência",     cor:"#8E1E3D", beyond:[
         "Gestão do time e interlocução com diretoria",
@@ -465,30 +471,15 @@ const HUBS = {
       ]},
       Rafael:  {cargo:"Analista III", senior:"Análise",      cor:"#F5A623", beyond:null},
       Juliana: {cargo:"Analista I",   senior:"Análise",      cor:"#FF7B3A", beyond:null}
-    },
-    seed:[
-      {id:1,  cliente:"FIAT",          urgencia:"Média", projeto:"Connect Me",               tarefa:"Mapeamento",                                             resp:"Raissa, Juliana", contato:"", status:"Em andamento",  entrega:"22/04/2026", obs:""},
-      {id:2,  cliente:"NUTREN CONTROL",urgencia:"Média", projeto:"Nutren Control",           tarefa:"Ajustes - briefings",                                    resp:"Juliana",         contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
-      {id:3,  cliente:"JEEP",          urgencia:"Média", projeto:"AON",                      tarefa:"Ajustes (inserir novos nomes)",                          resp:"Raissa",          contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
-      {id:4,  cliente:"FIAT",          urgencia:"Média", projeto:"50 anos",                  tarefa:"Mapeamento",                                             resp:"Rafael",          contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
-      {id:5,  cliente:"FIAT",          urgencia:"Média", projeto:"Por assinatura",           tarefa:"Mapeamento",                                             resp:"Raissa",          contato:"", status:"Não iniciada",  entrega:"23/04/2026", obs:""},
-      {id:6,  cliente:"NHS",           urgencia:"Grande",projeto:"Apresentações NHS",        tarefa:"Atualizar todas (cenários + nomes + timeline)",          resp:"Raissa",          contato:"", status:"Não iniciada",  entrega:"24/04/2026", obs:"debrief 17/04"},
-      {id:7,  cliente:"BRASIL CACAU",  urgencia:"Média", projeto:"Mães",                     tarefa:"Mapeamento",                                             resp:"Rafael",          contato:"", status:"Não iniciada",  entrega:"24/04/2026", obs:"debrief 15/04"},
-      {id:8,  cliente:"NESCAU",        urgencia:"Média", projeto:"Embaixadores",             tarefa:"Briefings",                                              resp:"Juliana",         contato:"", status:"Não iniciada",  entrega:"24/04/2026", obs:""},
-      {id:9,  cliente:"BRASIL CACAU",  urgencia:"Média", projeto:"Mães",                     tarefa:"Apresentação",                                           resp:"Rafael, Raissa",  contato:"", status:"Não iniciada",  entrega:"28/04/2026", obs:""},
-      {id:10, cliente:"NESTLÉ",        urgencia:"Média", projeto:"Vila Nestlé no São João",  tarefa:"Apresentação",                                           resp:"Suelyn",          contato:"", status:"Em andamento",  entrega:"28/04/2026", obs:""},
-      {id:11, cliente:"PEUGEOT",       urgencia:"Média", projeto:"Peugeot",                  tarefa:"Apresentação",                                           resp:"Rafael, Juliana", contato:"", status:"Enviado",       entrega:"A definir",  obs:"Rafa cobrado em 07/04 e 17/04"},
-      {id:12, cliente:"BRASIL CACAU",  urgencia:"Pequena",projeto:"Sensação + Copa do mundo",tarefa:"Oportunidade",                                           resp:"",                contato:"", status:"Não iniciada",  entrega:"A definir",  obs:"All time"}
-    ]
+    }
   },
-
   beleza: {
     id:"beleza",
     name:"Hub de Beleza",
-    subtitle:"",
-    password:"5678",
+    password:CONFIG.beleza.password,
     color:"#E93E5C",
     gradient:"linear-gradient(135deg,#FF7B3A,#E93E5C)",
+    aliases:{},
     team:{
       Gustavo:  {cargo:"Gerente",      senior:"Gerência",    cor:"#D4A017", beyond:[
         "Gestão do time de beleza e interlocução com diretoria",
@@ -502,7 +493,7 @@ const HUBS = {
         "Mentoria técnica para analistas",
         "Coberturas do Gustavo quando necessário"
       ]},
-      Thábata:  {cargo:"Coordenadora", senior:"Coordenação", cor:"#C04E28", beyond:[
+      "Thábata": {cargo:"Coordenadora",senior:"Coordenação", cor:"#C04E28", beyond:[
         "Coordenação das demandas (priorização e distribuição)",
         "Revisão e validação interna antes de enviar",
         "Gestão de cronogramas e SLAs",
@@ -511,17 +502,15 @@ const HUBS = {
       Olivia:   {cargo:"Analista II",  senior:"Análise",     cor:"#F5A623", beyond:null},
       Aline:    {cargo:"Analista I",   senior:"Análise",     cor:"#8E1E3D", beyond:null},
       Nicole:   {cargo:"Analista I",   senior:"Análise",     cor:"#FF7B3A", beyond:null}
-    },
-    seed:SEED_BELEZA
+    }
   },
-
   nn: {
     id:"nn",
     name:"Hub Novos Negócios",
-    subtitle:"",
-    password:"9012",
+    password:CONFIG.nn.password,
     color:"#FF7B3A",
     gradient:"linear-gradient(135deg,#F5A623,#FF7B3A)",
+    aliases:{},
     team:{
       Gustavo: {cargo:"Gerente",     senior:"Gerência",     cor:"#D4A017", beyond:[
         "Liderança comercial e prospecção de novos clientes",
@@ -534,50 +523,232 @@ const HUBS = {
         "Desenho de soluções customizadas por cliente",
         "Imersão em brand/briefing de novos clientes",
         "Suporte estratégico em novas oportunidades"
-      ]}
-    },
-    seed:SEED_NN
+      ]},
+      Will:    {cargo:"Analista",    senior:"Análise",      cor:"#F5A623", beyond:null},
+      Aline:   {cargo:"Analista",    senior:"Análise",      cor:"#FF7B3A", beyond:null}
+    }
   }
 };
 
-// ════════ DIRETORIA ════════
-// Mude a senha da diretoria aqui (4 dígitos)
 const DIRETORIA = {
   id:"diretoria",
   name:"Painel da Diretoria",
-  subtitle:"",
-  password:"2811",
+  password:CONFIG.diretoria.password,
   color:"#1A1A1A",
   gradient:"linear-gradient(135deg,#F5A623,#E93E5C)"
 };
 
-// Senha de gestão — libera Carga e Papéis dentro de qualquer hub
-// (só gerência / coordenação / supervisão têm essa senha)
-const MANAGER_PASSWORD = "2811";
-
-// Status/Urgência configs
+// ════════════════════════════════════════════════════════════════
+//  STATUS — normalização (planilhas usam termos variados)
+// ════════════════════════════════════════════════════════════════
 const STATUSES = ["Em andamento","Não iniciada","Aguardando","Bloqueada","Enviado","Feito"];
 const STATUS_BADGE = {"Em andamento":"b-and","Não iniciada":"b-ni","Aguardando":"b-ag","Bloqueada":"b-bl","Enviado":"b-env","Feito":"b-ok"};
-const STATUS_COLOR = {"Em andamento":"#7A5A00","Não iniciada":"#1A4F8A","Aguardando":"#7C3A0C","Bloqueada":"#8A1A1A","Enviado":"#4A2D8A","Feito":"#145A32"};
-const STATUS_ORDER = ["Em andamento","Aguardando","Bloqueada","Não iniciada","Enviado","Feito"];
-const URGENCIAS = ["Grande","Média","Pequena"];
 const URG_BADGE = {"Grande":"b-u-g","Média":"b-u-m","Pequena":"b-u-p"};
 
-// Data atual (ajuste aqui se quiser simular outra data)
-const TODAY = new Date();
+function normStatus(s){
+  if(!s) return "Não iniciada";
+  const t = s.toString().trim().toLowerCase();
+  if(/feit/.test(t)) return "Feito";
+  if(/envi/.test(t)) return "Enviado";
+  if(/bloque/.test(t)) return "Bloqueada";
+  if(/aguard/.test(t)) return "Aguardando";
+  if(/aprova/.test(t)) return "Aguardando";
+  if(/ajust/.test(t)) return "Em andamento";
+  if(/execu/.test(t)) return "Em andamento";
+  if(/andam/.test(t)) return "Em andamento";
+  if(/inci|inici/.test(t)) return "Não iniciada";
+  return "Não iniciada";
+}
+function normUrg(u){
+  if(!u) return "Média";
+  const t = u.toString().trim().toLowerCase();
+  if(/grand/.test(t)) return "Grande";
+  if(/peque/.test(t)) return "Pequena";
+  return "Média";
+}
 
-// ════════ ESTADO ════════
+// ════════════════════════════════════════════════════════════════
+//  CSV PARSER + MAPEADORES POR HUB
+// ════════════════════════════════════════════════════════════════
+function parseCSV(text){
+  // Parser CSV simples que lida com aspas duplas e vírgulas dentro
+  const rows = [];
+  let cur = [], val = "", inQ = false;
+  for(let i=0;i<text.length;i++){
+    const c = text[i], n = text[i+1];
+    if(inQ){
+      if(c === '"' && n === '"'){ val += '"'; i++; }
+      else if(c === '"'){ inQ = false; }
+      else { val += c; }
+    } else {
+      if(c === '"'){ inQ = true; }
+      else if(c === ','){ cur.push(val); val = ""; }
+      else if(c === '\n'){ cur.push(val); rows.push(cur); cur = []; val = ""; }
+      else if(c === '\r'){ /* skip */ }
+      else { val += c; }
+    }
+  }
+  if(val.length || cur.length){ cur.push(val); rows.push(cur); }
+  return rows.filter(r => r.some(cell => (cell||"").trim().length));
+}
+
+// Detecta a linha de cabeçalho — algumas planilhas têm linhas de título antes.
+// Procura a primeira linha com 3+ células não vazias que parecem nomes de coluna.
+function findHeaderRow(rows){
+  const HEADER_HINTS = ["cliente","demanda","data","status","responsável","responsavel","tarefa","projeto","profissional","urgência","urgencia"];
+  for(let i = 0; i < Math.min(rows.length, 8); i++){
+    const r = rows[i].map(c => (c||"").trim().toLowerCase());
+    const filled = r.filter(c => c.length).length;
+    if(filled < 3) continue;
+    const hasHint = r.some(c => HEADER_HINTS.some(h => c.includes(h)));
+    if(hasHint) return i;
+  }
+  return 0;
+}
+
+function csvToObjects(rows){
+  if(!rows.length) return [];
+  const headerIdx = findHeaderRow(rows);
+  const headers = rows[headerIdx].map(h => (h||"").trim());
+  return rows.slice(headerIdx + 1).map(r => {
+    const o = {};
+    headers.forEach((h,i) => { o[h] = (r[i]||"").trim(); });
+    return o;
+  });
+}
+
+// Resolve apelido (Su → Suelyn). Se nome não está no time, retorna como veio.
+function resolveAlias(name, aliases){
+  if(!name) return "";
+  const trimmed = name.trim();
+  return aliases[trimmed] || trimmed;
+}
+
+// Aceita "Su + Rai", "Su, Rai", "Su / Rai" etc.
+function splitPeople(s){
+  if(!s) return [];
+  return s.toString().split(/[,+/&]|\se\s/i).map(x => x.trim()).filter(Boolean);
+}
+
+function normalizePeople(s, aliases){
+  return splitPeople(s).map(n => resolveAlias(n, aliases)).join(", ");
+}
+
+// Mapeador Bens de Consumo (planilha tem colunas diferentes)
+function mapBcRow(o, aliases){
+  const demanda = o["DEMANDA"] || "";
+  const projetoMarca = o["DEMANDA (atividade + projeto e marca)"] || "";
+  // tenta separar marca/projeto se vier algo tipo "Brasil Cacau Mães" ou "Vila Nestle no São João"
+  let cliente = "", projeto = projetoMarca;
+  const known = ["NESTLÉ","NESTLE","BRASIL CACAU","NUTREN","NESCAU","NESCAFÉ","NESCAFE","FIAT","JEEP","PEUGEOT","RAM","NHS","FIBERMAIS","BANCO PAN","SPECIAL DOG","NEDA"];
+  const upper = projetoMarca.toUpperCase();
+  for(const k of known){
+    if(upper.includes(k)){ cliente = k; projeto = projetoMarca; break; }
+  }
+  if(!cliente && projetoMarca){
+    const parts = projetoMarca.split(" ");
+    cliente = parts[0] || projetoMarca;
+  }
+  return {
+    cliente: cliente || "—",
+    urgencia: "Média",
+    projeto: projeto,
+    tarefa: demanda,
+    resp: normalizePeople(o["PROFISSIONAL"] || "", aliases),
+    contato: "",
+    status: normStatus(o["STATUS"]),
+    entrega: o["DATA DE ENTREGA"] || "",
+    obs: o["OBSERVAÇÃO"] || o["APRESENTAÇÃO"] || ""
+  };
+}
+
+// Mapeador padrão (NN e Beleza usam mesmas colunas)
+function mapStandardRow(o, aliases){
+  return {
+    cliente: o["Cliente"] || "",
+    urgencia: normUrg(o["Urgência"]),
+    projeto: o["Projeto"] || "",
+    tarefa: o["Tarefa"] || "",
+    resp: normalizePeople(o["Responsável"] || o["Responsável "] || "", aliases),
+    contato: o["Ponto de contato"] || "",
+    status: normStatus(o["Status Atual"]),
+    entrega: o["Data de Entrega"] || "",
+    obs: o["Observações"] || ""
+  };
+}
+
+const MAPPERS = {
+  bc: mapBcRow,
+  beleza: mapStandardRow,
+  nn: mapStandardRow
+};
+
+// ════════════════════════════════════════════════════════════════
+//  CACHE / FETCH
+// ════════════════════════════════════════════════════════════════
+const CACHE = {}; // hubId → {data:[], fetchedAt:Date}
+
+async function fetchHubData(hubId, force=false){
+  const cfg = CONFIG[hubId];
+  if(!cfg || !cfg.csvUrl || cfg.csvUrl.startsWith("COLE_AQUI")){
+    throw new Error("URL do CSV não configurada para "+hubId+". Edite a constante CONFIG no topo do arquivo.");
+  }
+  if(!force && CACHE[hubId] && (Date.now() - CACHE[hubId].fetchedAt < 30000)){
+    return CACHE[hubId].data;
+  }
+  const url = cfg.csvUrl + (cfg.csvUrl.includes("?") ? "&" : "?") + "_t=" + Date.now();
+  const resp = await fetch(url);
+  if(!resp.ok) throw new Error("Falha ao buscar planilha de "+hubId+" (HTTP "+resp.status+")");
+  const text = await resp.text();
+  const rows = parseCSV(text);
+  const objs = csvToObjects(rows);
+  const mapper = MAPPERS[hubId];
+  const hub = HUBS[hubId];
+  const data = objs
+    .map((o,idx) => ({id: idx+1, ...mapper(o, hub.aliases || {})}))
+    .filter(d => (d.cliente && d.cliente !== "—") || d.projeto || d.tarefa); // ignora linhas vazias
+  CACHE[hubId] = {data, fetchedAt: Date.now()};
+  return data;
+}
+
+async function fetchAllHubs(force=false){
+  const ids = Object.keys(HUBS);
+  const results = await Promise.allSettled(ids.map(id => fetchHubData(id, force)));
+  return ids.reduce((acc, id, i) => {
+    if(results[i].status === "fulfilled") acc[id] = results[i].value;
+    else { acc[id] = []; console.warn("Falha em", id, results[i].reason); }
+    return acc;
+  }, {});
+}
+
+function formatTime(ts){
+  if(!ts) return "";
+  const d = new Date(ts);
+  const pad = n => String(n).padStart(2,"0");
+  return pad(d.getHours())+":"+pad(d.getMinutes());
+}
+
+function showLoading(msg){
+  document.getElementById("loading-msg").textContent = msg || "Buscando dados...";
+  document.getElementById("loading").classList.add("show");
+}
+function hideLoading(){
+  document.getElementById("loading").classList.remove("show");
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ESTADO
+// ════════════════════════════════════════════════════════════════
+const TODAY = new Date();
 let currentHub = null;
 let demands = [];
-let nextId = 1;
 let activeStatus = "all";
 let activePerson = null;
 let pendingHub = null;
-let pwdFlow = "hub";        // "hub", "diretoria", "manager"
-let pendingManagerPage = null; // "carga" ou "papeis"
-let managerUnlocked = false; // fica true depois que a senha de gestão foi digitada na sessão
 
-// ════════ LANDING ════════
+// ════════════════════════════════════════════════════════════════
+//  LANDING
+// ════════════════════════════════════════════════════════════════
 function renderLanding(){
   const grid = document.getElementById("hubs-grid");
   grid.innerHTML = Object.values(HUBS).map(h=>{
@@ -586,38 +757,27 @@ function renderLanding(){
       <div class="icon" style="background:${h.gradient};">${h.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()}</div>
       <h2>${h.name}</h2>
       <div class="people">
-        ${people.map(([n,i])=>`<div class="avatar-mini" style="background:${i.cor};" title="${n}">${n.slice(0,2).toUpperCase()}</div>`).join("")||'<span style="font-size:11px;color:rgba(255,255,255,.4);">Time vazio — adicione na aba Editar</span>'}
+        ${people.map(([n,i])=>`<div class="avatar-mini" style="background:${i.cor};" title="${n}">${n.slice(0,2).toUpperCase()}</div>`).join("")}
       </div>
       <div class="enter">Entrar →</div>
     </div>`;
   }).join("");
 
-  // Diretoria card
   document.getElementById("diretoria-row").innerHTML = `
     <div class="dir-card" onclick="openHub('diretoria')">
       <div class="dir-icon">★</div>
-      <div class="dir-info">
-        <h2>${DIRETORIA.name}</h2>
-      </div>
+      <div class="dir-info"><h2>${DIRETORIA.name}</h2></div>
       <div class="dir-enter">Acesso restrito →</div>
     </div>`;
 }
 
-// ════════ AUTH ════════
+// ════════════════════════════════════════════════════════════════
+//  AUTH
+// ════════════════════════════════════════════════════════════════
 function openHub(hubId){
   pendingHub = hubId;
-  pwdFlow = hubId==="diretoria" ? "diretoria" : "hub";
   const target = hubId==="diretoria" ? DIRETORIA : HUBS[hubId];
   document.getElementById("pwd-title").textContent = target.name;
-  document.getElementById("pin-error").textContent = "";
-  document.querySelectorAll(".pin-i").forEach(i=>i.value="");
-  document.getElementById("pwd-modal").classList.add("show");
-  setTimeout(()=>document.querySelectorAll(".pin-i")[0].focus(),100);
-}
-function openManagerModal(targetPage){
-  pwdFlow = "manager";
-  pendingManagerPage = targetPage;
-  document.getElementById("pwd-title").textContent = "Área de gestão";
   document.getElementById("pin-error").textContent = "";
   document.querySelectorAll(".pin-i").forEach(i=>i.value="");
   document.getElementById("pwd-modal").classList.add("show");
@@ -626,39 +786,24 @@ function openManagerModal(targetPage){
 function closePwdModal(){
   document.getElementById("pwd-modal").classList.remove("show");
   pendingHub = null;
-  pendingManagerPage = null;
 }
-function checkPwd(){
+async function checkPwd(){
   const pwd = [...document.querySelectorAll(".pin-i")].map(i=>i.value).join("");
   if(pwd.length!==4){
     document.getElementById("pin-error").textContent = "Digite os 4 dígitos";
     return;
   }
-  if(pwdFlow === "manager"){
-    if(pwd === MANAGER_PASSWORD){
-      managerUnlocked = true;
-      const target = pendingManagerPage;
-      closePwdModal();
-      goPage(target);
-    } else {
-      document.getElementById("pin-error").textContent = "Senha incorreta";
-      document.querySelectorAll(".pin-i").forEach(i=>i.value="");
-      document.querySelectorAll(".pin-i")[0].focus();
-    }
-    return;
-  }
   const target = pendingHub==="diretoria" ? DIRETORIA : HUBS[pendingHub];
   if(pwd === target.password){
-    if(pendingHub==="diretoria") enterDiretoria();
-    else enterHub(pendingHub);
     closePwdModal();
+    if(pendingHub==="diretoria") await enterDiretoria();
+    else await enterHub(pendingHub);
   } else {
     document.getElementById("pin-error").textContent = "Senha incorreta";
     document.querySelectorAll(".pin-i").forEach(i=>i.value="");
     document.querySelectorAll(".pin-i")[0].focus();
   }
 }
-// PIN auto-advance
 document.querySelectorAll(".pin-i").forEach((inp,idx,arr)=>{
   inp.addEventListener("input",()=>{
     inp.value = inp.value.replace(/\D/g,"");
@@ -671,43 +816,316 @@ document.querySelectorAll(".pin-i").forEach((inp,idx,arr)=>{
   });
 });
 
-function enterHub(hubId){
+async function enterHub(hubId){
   currentHub = hubId;
-  loadDemands();
+  showLoading("Buscando dados da planilha...");
+  try {
+    demands = await fetchHubData(hubId);
+  } catch(e){
+    hideLoading();
+    showToast("Erro: " + e.message, true);
+    return;
+  }
+  hideLoading();
   document.getElementById("page-landing").style.display="none";
   document.getElementById("page-hub").classList.add("show");
   const hub = HUBS[hubId];
-  document.getElementById("topbar-title").innerHTML = hub.name.replace(hub.name.split(" ")[0],`${hub.name.split(" ")[0]} <span>${hub.name.split(" ").slice(1).join(" ")}</span>`);
-  document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
-  document.querySelectorAll(".nav-tab")[0].classList.add("active");
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  const first = hub.name.split(" ")[0];
+  document.getElementById("topbar-title").innerHTML = hub.name.replace(first, `${first} <span>${hub.name.split(" ").slice(1).join(" ")}</span>`);
+  document.querySelectorAll("#page-hub .nav-tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll("#page-hub .nav-tab")[0].classList.add("active");
+  document.querySelectorAll("#page-hub .page").forEach(p=>p.classList.remove("active"));
   document.getElementById("page-dash").classList.add("active");
   activeStatus="all";
   activePerson=null;
   document.querySelectorAll("#filters-dash .chip").forEach(c=>c.classList.toggle("on", c.dataset.s==="all"));
+  document.getElementById("hub-last-update").textContent = "Atualizado às " + formatTime(CACHE[hubId].fetchedAt);
   renderDash();
+}
+
+async function refreshHub(){
+  if(!currentHub || currentHub==="diretoria") return;
+  showLoading("Atualizando...");
+  try {
+    demands = await fetchHubData(currentHub, true);
+    document.getElementById("hub-last-update").textContent = "Atualizado às " + formatTime(CACHE[currentHub].fetchedAt);
+    hideLoading();
+    showToast("Dados atualizados!");
+    renderDash();
+    renderCarga();
+    renderPapeis();
+  } catch(e){
+    hideLoading();
+    showToast("Erro: " + e.message, true);
+  }
+}
+
+function openSheet(){
+  if(!currentHub || !CONFIG[currentHub]) return;
+  window.open(CONFIG[currentHub].sheetUrl, "_blank");
 }
 
 function logout(){
   currentHub = null;
   demands = [];
-  managerUnlocked = false;
   document.getElementById("page-hub").classList.remove("show");
   document.getElementById("page-diretoria").classList.remove("show");
   document.getElementById("page-landing").style.display="flex";
 }
 
-// ════════ DIRETORIA ════════
-function enterDiretoria(){
+// ════════════════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════════════════
+function parseEntrega(s){
+  if(!s) return null;
+  const up = s.toString().toUpperCase();
+  if(up.includes("DEFINIR")||up.includes("AGUARDANDO")||up.includes("PAUSADO")) return null;
+  // formato dd/mm ou dd/mm/yyyy ou dd/mm/yy
+  const parts = s.toString().trim().split("/");
+  if(parts.length<2) return null;
+  const d = parseInt(parts[0],10), m = parseInt(parts[1],10);
+  let y = parts.length>2?parseInt(parts[2],10):TODAY.getFullYear();
+  if(isNaN(d)||isNaN(m)) return null;
+  if(y<100) y+=2000;
+  return new Date(y, m-1, d);
+}
+function isLate(d){
+  if(d.status==="Enviado"||d.status==="Feito") return false;
+  const dt = parseEntrega(d.entrega); if(!dt) return false;
+  return dt < new Date(TODAY.getFullYear(),TODAY.getMonth(),TODAY.getDate());
+}
+function initials(n){ return n.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase(); }
+function getPeople(resp){ return (resp||"").split(",").map(x=>x.trim()).filter(Boolean); }
+function isTeamMember(name, hubId){
+  hubId = hubId || currentHub;
+  return !!(HUBS[hubId] && HUBS[hubId].team[name]);
+}
+function personTags(resp, hubId){
+  hubId = hubId || currentHub;
+  return getPeople(resp).map(r=>{
+    const p = HUBS[hubId]?.team[r];
+    const cor = p?p.cor:"#6B7A8D";
+    return `<span class="tag-person" style="color:${cor};border-color:${cor}55;">${r}</span>`;
+  }).join("");
+}
+function showToast(msg, isError){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.toggle("error", !!isError);
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 2200);
+}
+
+// ════════════════════════════════════════════════════════════════
+//  DASH
+// ════════════════════════════════════════════════════════════════
+function renderDash(){
+  const t = HUBS[currentHub].team;
+  const anda = demands.filter(d=>d.status==="Em andamento").length;
+  const ni = demands.filter(d=>d.status==="Não iniciada").length;
+  const blog = demands.filter(d=>["Aguardando","Bloqueada"].includes(d.status)).length;
+  const atrasadas = demands.filter(isLate).length;
+  const env = demands.filter(d=>d.status==="Enviado").length;
+
+  document.getElementById("metrics").innerHTML = `
+    <div class="met"><div class="met-label">Em andamento</div><div class="met-val" style="color:#BA7517;">${anda}</div></div>
+    <div class="met"><div class="met-label">Não iniciada</div><div class="met-val" style="color:#378ADD;">${ni}</div></div>
+    <div class="met"><div class="met-label">Aguardando + Bloqueada</div><div class="met-val" style="color:#7C3A0C;">${blog}</div></div>
+    <div class="met"><div class="met-label">Atrasadas</div><div class="met-val" style="color:#8A1A1A;">${atrasadas}</div></div>
+    <div class="met"><div class="met-label">Enviadas</div><div class="met-val" style="color:#4A2D8A;">${env}</div></div>
+  `;
+
+  // People cards (resumo)
+  const pgrid = document.getElementById("people-grid");
+  pgrid.innerHTML = Object.entries(t).map(([name,info])=>{
+    const mine = demands.filter(d => getPeople(d.resp).includes(name));
+    const active = mine.filter(d => ["Em andamento","Não iniciada","Aguardando","Bloqueada"].includes(d.status)).length;
+    const late = mine.filter(isLate).length;
+    return `<div class="pcard ${activePerson===name?"active-p":""}" onclick="togglePerson('${name.replace(/'/g,"\\'")}')">
+      <div class="pcard-head">
+        <div class="avatar" style="background:${info.cor};">${initials(name)}</div>
+        <div><div class="pcard-name">${name}</div><div class="pcard-cargo">${info.cargo}</div></div>
+      </div>
+      <div class="pcard-bars">
+        <div class="bar-row"><span class="bar-label">Ativas</span><div class="bar-track"><div class="bar-fill" style="width:${Math.min(active*10,100)}%;background:${info.cor};"></div></div><span class="bar-count">${active}</span></div>
+        ${late ? `<div class="bar-row"><span class="bar-label" style="color:#8A1A1A;">Atrasadas</span><div class="bar-track"><div class="bar-fill" style="width:${Math.min(late*15,100)}%;background:#8A1A1A;"></div></div><span class="bar-count" style="color:#8A1A1A;">${late}</span></div>`:""}
+      </div>
+    </div>`;
+  }).join("");
+
+  // Filter cliente
+  const fc = document.getElementById("filter-cliente");
+  const clientes = [...new Set(demands.map(d=>d.cliente).filter(Boolean))].sort();
+  const cur = fc.value;
+  fc.innerHTML = `<option value="all">Todos</option>` + clientes.map(c=>`<option ${c===cur?"selected":""}>${c}</option>`).join("");
+  fc.onchange = renderTable;
+
+  document.querySelectorAll("#filters-dash .chip").forEach(c=>{
+    c.onclick = ()=>{
+      document.querySelectorAll("#filters-dash .chip").forEach(x=>x.classList.remove("on"));
+      c.classList.add("on");
+      activeStatus = c.dataset.s;
+      renderTable();
+    };
+  });
+  renderTable();
+}
+
+function togglePerson(name){
+  activePerson = activePerson===name ? null : name;
+  renderDash();
+}
+
+function renderTable(){
+  const fc = document.getElementById("filter-cliente").value;
+  let list = demands.slice();
+  if(activeStatus !== "all") list = list.filter(d => d.status === activeStatus);
+  if(activePerson) list = list.filter(d => getPeople(d.resp).includes(activePerson));
+  if(fc !== "all") list = list.filter(d => d.cliente === fc);
+
+  // sort: atrasadas primeiro, depois por entrega
+  list.sort((a,b)=>{
+    const la=isLate(a)?0:1, lb=isLate(b)?0:1;
+    if(la!==lb) return la-lb;
+    const da = parseEntrega(a.entrega), db = parseEntrega(b.entrega);
+    return (da?da.getTime():Infinity) - (db?db.getTime():Infinity);
+  });
+
+  document.getElementById("tbl-count").textContent = `${list.length} demanda${list.length!==1?"s":""}`;
+  document.getElementById("dash-tbody").innerHTML = list.map(d=>{
+    const late = isLate(d);
+    return `<tr>
+      <td title="${d.cliente||""}">${d.cliente||"—"}</td>
+      <td><span class="badge ${URG_BADGE[d.urgencia]||"b-u-m"}">${d.urgencia||"Média"}</span></td>
+      <td title="${d.projeto||""}">${d.projeto||"—"}</td>
+      <td title="${d.tarefa||""}">${d.tarefa||"—"}</td>
+      <td>${personTags(d.resp)||"—"}</td>
+      <td><span class="badge ${STATUS_BADGE[d.status]||"b-ni"}">${d.status}</span></td>
+      <td style="font-size:11px;${late?"color:#8A1A1A;font-weight:600;":""}">${d.entrega||"—"}${late?" ⚠":""}</td>
+      <td title="${d.obs||""}" style="font-size:11px;color:#6B7A8D;">${d.obs||""}</td>
+    </tr>`;
+  }).join("") || '<tr><td colspan="8" class="empty-state">Sem demandas nesse filtro</td></tr>';
+}
+
+// ════════════════════════════════════════════════════════════════
+//  CARGA
+// ════════════════════════════════════════════════════════════════
+function renderCarga(){
+  const t = HUBS[currentHub].team;
+  const cgrid = document.getElementById("carga-grid");
+  cgrid.innerHTML = Object.entries(t).map(([name,info])=>{
+    const mine = demands.filter(d => getPeople(d.resp).includes(name));
+    const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0,"Feito":0};
+    mine.forEach(d=>{ cnt[d.status] = (cnt[d.status]||0)+1; });
+    const max = Math.max(...Object.values(cnt), 1);
+    return `<div class="pcard">
+      <div class="pcard-head">
+        <div class="avatar" style="background:${info.cor};">${initials(name)}</div>
+        <div><div class="pcard-name">${name}</div><div class="pcard-cargo">${info.cargo}</div></div>
+      </div>
+      <div class="pcard-bars">
+        ${STATUSES.map(s=>`<div class="bar-row"><span class="bar-label">${s}</span><div class="bar-track"><div class="bar-fill" style="width:${(cnt[s]/max)*100}%;background:${info.cor};"></div></div><span class="bar-count">${cnt[s]}</span></div>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+
+  document.getElementById("carga-tbody").innerHTML = Object.entries(t).map(([name,info])=>{
+    const mine = demands.filter(d => getPeople(d.resp).includes(name));
+    const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0,"Feito":0};
+    mine.forEach(d=>{ cnt[d.status] = (cnt[d.status]||0)+1; });
+    const ativo = cnt["Em andamento"]+cnt["Não iniciada"]+cnt["Aguardando"]+cnt["Bloqueada"];
+    return `<tr>
+      <td style="font-weight:600;">${name}</td>
+      <td style="color:#6B7A8D;">${info.cargo}</td>
+      <td style="text-align:center;${cnt["Em andamento"]?'color:#BA7517;font-weight:600;':''}">${cnt["Em andamento"]}</td>
+      <td style="text-align:center;">${cnt["Não iniciada"]}</td>
+      <td style="text-align:center;${cnt["Aguardando"]?'color:#7C3A0C;font-weight:600;':''}">${cnt["Aguardando"]}</td>
+      <td style="text-align:center;${cnt["Bloqueada"]?'color:#8A1A1A;font-weight:600;':''}">${cnt["Bloqueada"]}</td>
+      <td style="text-align:center;color:#4A2D8A;">${cnt["Enviado"]}</td>
+      <td style="text-align:center;font-weight:700;">${ativo}</td>
+    </tr>`;
+  }).join("");
+}
+
+// ════════════════════════════════════════════════════════════════
+//  PAPÉIS
+// ════════════════════════════════════════════════════════════════
+function renderPapeis(){
+  const t = HUBS[currentHub].team;
+  document.getElementById("beyond-grid").innerHTML = Object.entries(t).filter(([n,i])=>i.beyond&&i.beyond.length).map(([name,info])=>{
+    return `<div class="beyond-card">
+      <div class="h">
+        <span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${info.cor};"></span>
+        ${name} · ${info.cargo}
+      </div>
+      <ul>${info.beyond.map(b=>`<li>${b}</li>`).join("")}</ul>
+    </div>`;
+  }).join("") || '<div class="empty-state">Nenhum papel adicional registrado.</div>';
+
+  document.getElementById("papeis-tbody").innerHTML = Object.entries(t).map(([name,info])=>{
+    const total = demands.filter(d => getPeople(d.resp).includes(name)).length;
+    return `<tr>
+      <td style="font-weight:600;">${name}</td>
+      <td style="color:#6B7A8D;">${info.cargo}</td>
+      <td style="color:#6B7A8D;">${info.senior}</td>
+      <td style="text-align:center;font-weight:600;">${total}</td>
+    </tr>`;
+  }).join("");
+}
+
+// ════════════════════════════════════════════════════════════════
+//  NAVEGAÇÃO HUB
+// ════════════════════════════════════════════════════════════════
+function goPage(name, ev){
+  document.querySelectorAll("#page-hub .nav-tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll("#page-hub .page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page-"+name).classList.add("active");
+  if(ev && ev.target) ev.target.classList.add("active");
+  if(name==="dash") renderDash();
+  if(name==="carga") renderCarga();
+  if(name==="papeis") renderPapeis();
+}
+
+// ════════════════════════════════════════════════════════════════
+//  DIRETORIA
+// ════════════════════════════════════════════════════════════════
+let dirData = {}; // hubId → demands[]
+
+async function enterDiretoria(){
   currentHub = "diretoria";
+  showLoading("Buscando dados de todos os hubs...");
+  try {
+    dirData = await fetchAllHubs();
+  } catch(e){
+    hideLoading();
+    showToast("Erro: " + e.message, true);
+    return;
+  }
+  hideLoading();
   document.getElementById("page-landing").style.display="none";
   document.getElementById("page-diretoria").classList.add("show");
-  // reset tab state
   document.querySelectorAll("#page-diretoria .nav-tab").forEach(t=>t.classList.remove("active"));
   document.querySelectorAll("#page-diretoria .nav-tab")[0].classList.add("active");
   document.querySelectorAll("#page-diretoria .page").forEach(p=>p.classList.remove("active"));
   document.getElementById("dir-page-overview").classList.add("active");
+  const lastFetch = Math.max(...Object.values(CACHE).map(c=>c.fetchedAt));
+  document.getElementById("dir-last-update").textContent = "Atualizado às " + formatTime(lastFetch);
   renderDiretoria();
+}
+
+async function refreshDiretoria(){
+  showLoading("Atualizando todos os hubs...");
+  try {
+    dirData = await fetchAllHubs(true);
+    const lastFetch = Math.max(...Object.values(CACHE).map(c=>c.fetchedAt));
+    document.getElementById("dir-last-update").textContent = "Atualizado às " + formatTime(lastFetch);
+    hideLoading();
+    showToast("Dados atualizados!");
+    renderDiretoria();
+  } catch(e){
+    hideLoading();
+    showToast("Erro: " + e.message, true);
+  }
 }
 
 function goDirPage(name,ev){
@@ -718,24 +1136,18 @@ function goDirPage(name,ev){
   renderDiretoria();
 }
 
-function loadAllHubDemands(){
-  // Retorna [{hub, hubName, hubColor, ...demand}]
+function getAllDemands(){
   const all = [];
-  Object.values(HUBS).forEach(h=>{
-    let data;
-    try{
-      const saved = JSON.parse(localStorage.getItem("pub-hub-"+h.id)||"null");
-      data = (saved && Array.isArray(saved)) ? saved : h.seed;
-    } catch(e){ data = h.seed; }
-    data.forEach(d=>{
-      all.push({...d, hub:h.id, hubName:h.name, hubColor:h.color, hubTeam:h.team});
-    });
+  Object.entries(dirData).forEach(([hubId, list])=>{
+    const h = HUBS[hubId];
+    if(!h) return;
+    list.forEach(d => all.push({...d, hub:hubId, hubName:h.name, hubColor:h.color, hubTeam:h.team}));
   });
   return all;
 }
 
 function renderDiretoria(){
-  const all = loadAllHubDemands();
+  const all = getAllDemands();
   const active = all.filter(d=>["Em andamento","Não iniciada","Aguardando","Bloqueada"].includes(d.status));
   const atrasadas = all.filter(isLate);
   const enviadas = all.filter(d=>d.status==="Enviado");
@@ -750,7 +1162,6 @@ function renderDiretoria(){
     <div class="met"><div class="met-label">Concluídas</div><div class="met-val" style="color:#145A32;">${feitas.length}</div><div class="met-sub">feitas</div></div>
   `;
 
-  // Hub summary
   document.getElementById("hubs-summary").innerHTML = Object.values(HUBS).map(h=>{
     const hd = all.filter(d=>d.hub===h.id);
     const act = hd.filter(d=>["Em andamento","Não iniciada","Aguardando","Bloqueada"].includes(d.status)).length;
@@ -766,7 +1177,6 @@ function renderDiretoria(){
     </div>`;
   }).join("");
 
-  // Atrasadas
   document.getElementById("dir-late-tbody").innerHTML = atrasadas.sort((a,b)=>{
     const da = parseEntrega(a.entrega), db = parseEntrega(b.entrega);
     return (da?da.getTime():0) - (db?db.getTime():0);
@@ -783,7 +1193,7 @@ function renderDiretoria(){
   }).join("")||'<tr><td colspan="6" style="text-align:center;padding:28px;color:#9AA5B4;font-style:italic;">Nenhuma demanda atrasada — parabéns ao time!</td></tr>';
 
   // ── PESSOAS ──
-  const peopleMap = {}; // {name: {hubs:[], total, active, breakdown, cargos}}
+  const peopleMap = {};
   active.forEach(d=>{
     (d.resp||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(name=>{
       if(!peopleMap[name]) peopleMap[name] = {name, hubs:new Set(), total:0, statuses:{}, cargos:new Set()};
@@ -793,7 +1203,6 @@ function renderDiretoria(){
       if(d.hubTeam[name]) peopleMap[name].cargos.add(d.hubTeam[name].cargo);
     });
   });
-  // Add people with 0 active too
   Object.values(HUBS).forEach(h=>{
     Object.entries(h.team).forEach(([name,info])=>{
       if(!peopleMap[name]){
@@ -807,11 +1216,9 @@ function renderDiretoria(){
 
   const people = Object.values(peopleMap).sort((a,b)=>b.total - a.total);
   const maxLoad = Math.max(...people.map(p=>p.total), 1);
-
   const statusColors = {"Em andamento":"#BA7517","Não iniciada":"#378ADD","Aguardando":"#F59E0B","Bloqueada":"#E24B4A"};
 
   document.getElementById("people-ranking").innerHTML = people.map((p,i)=>{
-    // Cor do avatar (pega do primeiro hub)
     const hubId = [...p.hubs][0];
     const teamInfo = HUBS[hubId]?.team[p.name];
     const cor = teamInfo?.cor || "#6B7A8D";
@@ -827,11 +1234,11 @@ function renderDiretoria(){
 
     return `<div class="rank-row">
       <div class="pos">${i+1}</div>
-      <div class="av" style="background:${cor};">${p.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()}</div>
+      <div class="av" style="background:${cor};">${initials(p.name)}</div>
       <div class="info">
         <div class="name">${p.name}</div>
         <div class="meta">
-          <span>${[...p.cargos].join(", ")}</span>
+          <span>${[...p.cargos].join(", ") || "—"}</span>
           <div class="hubs">${hubBadges}</div>
         </div>
       </div>
@@ -894,7 +1301,7 @@ function renderDiretoria(){
 
   const renderListPeople = (arr,showVal=true) => arr.length ? arr.map(p=>{
     const cargo = [...p.cargos].join(", ");
-    return `<li><div><div class="pname">${p.name}</div><div class="pcargo">${cargo}</div></div>${showVal?`<div class="pval">${p.total}</div>`:""}</li>`;
+    return `<li><div><div class="pname">${p.name}</div><div class="pcargo">${cargo||"&nbsp;"}</div></div>${showVal?`<div class="pval">${p.total}</div>`:""}</li>`;
   }).join("") : '<li style="color:#9AA5B4;font-style:italic;justify-content:center;">ninguém nessa categoria</li>';
 
   document.getElementById("alerts-grid").innerHTML = `
@@ -926,348 +1333,10 @@ function renderDiretoria(){
   `;
 }
 
-// Auto-atualiza diretoria quando alguém mexe num hub em outra aba
-window.addEventListener("storage", (e)=>{
-  if(currentHub==="diretoria" && e.key && e.key.startsWith("pub-hub-")){
-    renderDiretoria();
-  }
-});
-
-// ════════ DATA ════════
-function storageKey(){ return "pub-hub-"+currentHub; }
-function loadDemands(){
-  try{
-    const saved = JSON.parse(localStorage.getItem(storageKey())||"null");
-    if(saved && Array.isArray(saved)){
-      demands = saved;
-    } else {
-      demands = JSON.parse(JSON.stringify(HUBS[currentHub].seed));
-    }
-  }catch(e){
-    demands = JSON.parse(JSON.stringify(HUBS[currentHub].seed));
-  }
-  nextId = demands.length ? Math.max(...demands.map(d=>d.id))+1 : 1;
-}
-function saveDemands(){
-  try{ localStorage.setItem(storageKey(), JSON.stringify(demands)); }catch(e){}
-}
-
-// ════════ HELPERS ════════
-function parseEntrega(s){
-  if(!s) return null;
-  const up = s.toString().toUpperCase();
-  if(up.includes("DEFINIR")||up.includes("AGUARDANDO")||up.includes("PAUSADO")||up.includes("-")&&s.length<4) return null;
-  const parts = s.split("/");
-  if(parts.length<2) return null;
-  const d = parseInt(parts[0],10), m = parseInt(parts[1],10), y = parts.length>2?parseInt(parts[2],10):TODAY.getFullYear();
-  if(isNaN(d)||isNaN(m)) return null;
-  return new Date(y, m-1, d);
-}
-function isLate(d){
-  if(d.status==="Enviado"||d.status==="Feito") return false;
-  const dt = parseEntrega(d.entrega); if(!dt) return false;
-  return dt < new Date(TODAY.getFullYear(),TODAY.getMonth(),TODAY.getDate());
-}
-function initials(n){ return n.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase(); }
-function getPeople(resp){ return (resp||"").split(",").map(x=>x.trim()).filter(Boolean); }
-function isTeamMember(name){ return !!HUBS[currentHub].team[name]; }
-
-function personTags(resp){
-  return getPeople(resp).map(r=>{
-    const p = HUBS[currentHub].team[r];
-    const cor = p?p.cor:"#6B7A8D";
-    return `<span class="tag-person" style="color:${cor};border-color:${cor}55;">${r}</span>`;
-  }).join("");
-}
-
-function showToast(msg){
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"), 1500);
-}
-
-function cycleStatus(id){
-  const d = demands.find(x=>x.id===id);
-  if(!d) return;
-  const i = STATUSES.indexOf(d.status);
-  d.status = STATUSES[(i+1)%STATUSES.length];
-  saveDemands();
-  renderDash();
-  showToast("Status → "+d.status);
-}
-
-// ════════ DASH ════════
-function renderDash(){
-  const t = HUBS[currentHub].team;
-  const anda = demands.filter(d=>d.status==="Em andamento").length;
-  const ni = demands.filter(d=>d.status==="Não iniciada").length;
-  const blog = demands.filter(d=>["Aguardando","Bloqueada"].includes(d.status)).length;
-  const atrasadas = demands.filter(isLate).length;
-  const env = demands.filter(d=>d.status==="Enviado").length;
-
-  document.getElementById("metrics").innerHTML = `
-    <div class="met"><div class="met-label">Total</div><div class="met-val">${demands.length}</div></div>
-    <div class="met"><div class="met-label">Em andamento</div><div class="met-val" style="color:#BA7517;">${anda}</div></div>
-    <div class="met"><div class="met-label">Não iniciadas</div><div class="met-val" style="color:#1A4F8A;">${ni}</div></div>
-    <div class="met"><div class="met-label">Aguardando/Bloq</div><div class="met-val" style="color:#7C3A0C;">${blog}</div></div>
-    <div class="met"><div class="met-label">Atrasadas</div><div class="met-val" style="color:#8A1A1A;">${atrasadas}</div><div class="met-sub">prazo vencido</div></div>
-  `;
-
-  // people cards
-  const pg = document.getElementById("people-grid");
-  if(Object.keys(t).length){
-    pg.innerHTML = Object.entries(t).map(([name,info])=>{
-      const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0,"Feito":0};
-      demands.forEach(d=>{ if(getPeople(d.resp).includes(name)) cnt[d.status]=(cnt[d.status]||0)+1; });
-      const ativo = cnt["Em andamento"]+cnt["Não iniciada"]+cnt["Aguardando"]+cnt["Bloqueada"];
-      const maxBar = 8;
-      const sel = activePerson===name?"active-p":"";
-      const bars = [
-        {label:"Em andamento",n:cnt["Em andamento"],color:"#BA7517"},
-        {label:"Não iniciada",n:cnt["Não iniciada"],color:"#378ADD"},
-        {label:"Aguardando",n:cnt["Aguardando"],color:"#F97316"},
-      ].filter(b=>b.n>0);
-      return `<div class="pcard ${sel}" onclick="togglePerson('${name}')">
-        <div class="pcard-head">
-          <div class="avatar" style="background:${info.cor};">${initials(name)}</div>
-          <div><div class="pcard-name">${name}</div><div class="pcard-cargo">${info.cargo}</div></div>
-        </div>
-        <div class="pcard-bars">
-          ${bars.length?bars.map(b=>`<div class="bar-row">
-            <div class="bar-label">${b.label}</div>
-            <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,Math.round(b.n/maxBar*100))}%;background:${b.color};"></div></div>
-            <div class="bar-count">${b.n}</div>
-          </div>`).join(""):'<div style="font-size:11px;color:#9AA5B4;font-style:italic;">Sem demandas ativas</div>'}
-          <div class="bar-row" style="margin-top:6px;border-top:0.5px solid #EEE;padding-top:6px;">
-            <div class="bar-label" style="color:#9AA5B4;">Ativo</div>
-            <div class="bar-track"></div>
-            <div class="bar-count" style="font-weight:600;">${ativo}</div>
-          </div>
-        </div>
-      </div>`;
-    }).join("");
-  } else {
-    pg.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">Nenhum time configurado nesse hub. Adicione pessoas editando o código ou crie demandas na aba Editar.</div>';
-  }
-
-  // cliente filter
-  const sel = document.getElementById("filter-cliente");
-  const cur = sel.value;
-  const clientes = [...new Set(demands.map(d=>d.cliente).filter(Boolean))].sort();
-  sel.innerHTML = '<option value="all">Todos</option>'+clientes.map(c=>`<option value="${c}" ${c===cur?"selected":""}>${c}</option>`).join("");
-  const filterCliente = sel.value;
-
-  // table
-  const filtered = demands.filter(d=>{
-    const ms = activeStatus==="all"||d.status===activeStatus;
-    const mp = !activePerson||getPeople(d.resp).includes(activePerson);
-    const mc = filterCliente==="all"||d.cliente===filterCliente;
-    return ms && mp && mc;
-  });
-
-  const sorted = [...filtered].sort((a,b)=>{
-    const oa = STATUS_ORDER.indexOf(a.status), ob = STATUS_ORDER.indexOf(b.status);
-    if(oa !== ob) return oa - ob;
-    const da = parseEntrega(a.entrega), db = parseEntrega(b.entrega);
-    if(!da && !db) return 0;
-    if(!da) return 1;
-    if(!db) return -1;
-    return da - db;
-  });
-
-  document.getElementById("tbl-count").textContent = `${sorted.length} demanda${sorted.length!==1?"s":""}`;
-  document.getElementById("dash-tbody").innerHTML = sorted.map(d=>{
-    const late = isLate(d);
-    const sb = STATUS_BADGE[d.status]||"b-ni";
-    const ub = URG_BADGE[d.urgencia]||"b-u-m";
-    return `<tr>
-      <td title="${d.cliente}">${d.cliente||"—"}</td>
-      <td><span class="badge ${ub}">${d.urgencia||"—"}</span></td>
-      <td title="${d.projeto}">${d.projeto||"—"}</td>
-      <td title="${d.tarefa}">${d.tarefa||"—"}</td>
-      <td>${personTags(d.resp)||'<span style="color:#9AA5B4;">—</span>'}</td>
-      <td><span class="badge ${sb} clickable" onclick="cycleStatus(${d.id})" title="Clique pra avançar">${d.status}</span></td>
-      <td style="font-size:11px;color:${late?'#8A1A1A':'#6B7A8D'};font-weight:${late?'600':'400'};">${d.entrega||"—"}${late?" ⚠":""}</td>
-      <td title="${d.obs}" style="font-size:11px;color:#6B7A8D;font-style:italic;">${d.obs||"—"}</td>
-    </tr>`;
-  }).join("")||'<tr><td colspan="8" style="text-align:center;padding:28px;color:#9AA5B4;font-style:italic;">Nenhuma demanda com os filtros atuais</td></tr>';
-}
-
-function togglePerson(name){
-  activePerson = activePerson===name?null:name;
-  renderDash();
-}
-document.getElementById("filters-dash").addEventListener("click",e=>{
-  const chip = e.target.closest(".chip");
-  if(!chip) return;
-  activeStatus = chip.dataset.s;
-  document.querySelectorAll("#filters-dash .chip").forEach(c=>c.classList.toggle("on", c.dataset.s===activeStatus));
-  renderDash();
-});
-document.getElementById("filter-cliente").addEventListener("change",renderDash);
-
-// ════════ CARGA ════════
-function renderCarga(){
-  const t = HUBS[currentHub].team;
-  const maxBar = 10;
-  const cg = document.getElementById("carga-grid");
-  if(!Object.keys(t).length){
-    cg.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">Nenhum time configurado.</div>';
-    document.getElementById("carga-tbody").innerHTML = "";
-    return;
-  }
-  cg.innerHTML = Object.entries(t).map(([name,info])=>{
-    const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0};
-    demands.forEach(d=>{ if(getPeople(d.resp).includes(name)) cnt[d.status]=(cnt[d.status]||0)+1; });
-    const ativo = cnt["Em andamento"]+cnt["Não iniciada"]+cnt["Aguardando"]+cnt["Bloqueada"];
-    const load = ativo>=8?"#8A1A1A":ativo>=5?"#7A5A00":"#145A32";
-    const sOrder = ["Em andamento","Não iniciada","Aguardando","Bloqueada","Enviado"];
-    const colors = {"Em andamento":"#BA7517","Não iniciada":"#378ADD","Aguardando":"#F97316","Bloqueada":"#E24B4A","Enviado":"#7F77DD"};
-    return `<div class="pcard">
-      <div class="pcard-head">
-        <div class="avatar" style="background:${info.cor};">${initials(name)}</div>
-        <div><div class="pcard-name">${name}</div><div class="pcard-cargo">${info.cargo}</div></div>
-      </div>
-      <div class="pcard-bars">
-        ${sOrder.map(s=>`<div class="bar-row">
-          <div class="bar-label">${s}</div>
-          <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,Math.round(cnt[s]/maxBar*100))}%;background:${colors[s]};"></div></div>
-          <div class="bar-count">${cnt[s]}</div>
-        </div>`).join("")}
-        <div class="bar-row" style="margin-top:6px;border-top:0.5px solid #EEE;padding-top:6px;">
-          <div class="bar-label" style="font-weight:600;">Total ativo</div>
-          <div class="bar-track"></div>
-          <div class="bar-count" style="font-weight:700;color:${load};">${ativo}</div>
-        </div>
-      </div>
-    </div>`;
-  }).join("");
-
-  document.getElementById("carga-tbody").innerHTML = Object.entries(t).map(([name,info])=>{
-    const cnt = {"Em andamento":0,"Não iniciada":0,"Aguardando":0,"Bloqueada":0,"Enviado":0};
-    demands.forEach(d=>{ if(getPeople(d.resp).includes(name)) cnt[d.status]=(cnt[d.status]||0)+1; });
-    const ativo = cnt["Em andamento"]+cnt["Não iniciada"]+cnt["Aguardando"]+cnt["Bloqueada"];
-    const load = ativo>=8?"color:#8A1A1A":ativo>=5?"color:#7A5A00":"color:#145A32";
-    return `<tr>
-      <td style="font-weight:500;">${name}</td>
-      <td style="font-size:11px;color:#6B7A8D;">${info.cargo}</td>
-      <td style="text-align:center;${cnt["Em andamento"]?'font-weight:600;color:#BA7517;':''}">${cnt["Em andamento"]}</td>
-      <td style="text-align:center;">${cnt["Não iniciada"]}</td>
-      <td style="text-align:center;${cnt["Aguardando"]?'color:#7C3A0C;font-weight:600;':''}">${cnt["Aguardando"]}</td>
-      <td style="text-align:center;${cnt["Bloqueada"]?'color:#8A1A1A;font-weight:600;':''}">${cnt["Bloqueada"]}</td>
-      <td style="text-align:center;">${cnt["Enviado"]}</td>
-      <td style="text-align:center;font-weight:700;${load}">${ativo}</td>
-    </tr>`;
-  }).join("");
-}
-
-// ════════ PAPÉIS ════════
-function renderPapeis(){
-  const t = HUBS[currentHub].team;
-  const bg = document.getElementById("beyond-grid");
-  if(!Object.keys(t).length){
-    bg.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">Nenhum time configurado.</div>';
-    document.getElementById("papeis-tbody").innerHTML = "";
-    return;
-  }
-  bg.innerHTML = Object.entries(t).filter(([,i])=>i.beyond).map(([name,info])=>{
-    return `<div class="beyond-card">
-      <div class="h"><div class="avatar" style="background:${info.cor};width:26px;height:26px;font-size:10px;">${initials(name)}</div>${name} · ${info.cargo}</div>
-      <ul>${info.beyond.map(b=>`<li>${b}</li>`).join("")}</ul>
-    </div>`;
-  }).join("") || '<div class="empty-state" style="grid-column:1/-1;">Analistas não têm responsabilidades fixas fora do board.</div>';
-
-  document.getElementById("papeis-tbody").innerHTML = Object.entries(t).map(([name,info])=>{
-    const n = demands.filter(d=>getPeople(d.resp).includes(name)).length;
-    return `<tr>
-      <td style="font-weight:500;"><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="background:${info.cor};width:26px;height:26px;font-size:10px;">${initials(name)}</div>${name}</div></td>
-      <td>${info.cargo}</td>
-      <td style="font-size:11px;color:#6B7A8D;">${info.senior}</td>
-      <td style="text-align:center;">${n}</td>
-    </tr>`;
-  }).join("");
-}
-
-// ════════ EDITAR ════════
-function renderEdit(){
-  document.getElementById("edit-tbody").innerHTML = demands.map(d=>`
-    <tr data-id="${d.id}">
-      <td><input value="${(d.cliente||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'cliente',this.value)" placeholder="Cliente"></td>
-      <td><select onchange="updateField(${d.id},'urgencia',this.value)">
-        ${URGENCIAS.map(u=>`<option ${d.urgencia===u?"selected":""}>${u}</option>`).join("")}
-      </select></td>
-      <td><input value="${(d.projeto||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'projeto',this.value)" placeholder="Projeto"></td>
-      <td><input value="${(d.tarefa||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'tarefa',this.value)" placeholder="Tarefa"></td>
-      <td><input value="${(d.resp||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'resp',this.value)" placeholder="Ex: Ana, Pedro"></td>
-      <td><input value="${(d.contato||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'contato',this.value)" placeholder="Contato cliente"></td>
-      <td><select onchange="updateField(${d.id},'status',this.value)">
-        ${STATUSES.map(s=>`<option ${d.status===s?"selected":""}>${s}</option>`).join("")}
-      </select></td>
-      <td><input value="${(d.entrega||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'entrega',this.value)" placeholder="dd/mm/aaaa"></td>
-      <td><input value="${(d.obs||"").replace(/"/g,"&quot;")}" onchange="updateField(${d.id},'obs',this.value)" placeholder="observação"></td>
-      <td><button class="del-btn" onclick="deleteRow(${d.id})">×</button></td>
-    </tr>`).join("")||'<tr><td colspan="10" style="text-align:center;padding:28px;color:#9AA5B4;font-style:italic;">Nenhuma demanda ainda — clique em "+ Nova demanda"</td></tr>';
-}
-
-function updateField(id,field,value){
-  const d = demands.find(x=>x.id===id);
-  if(d){ d[field] = value; saveDemands(); showToast("Atualizado"); }
-}
-function addRow(){
-  demands.unshift({id:nextId++, cliente:"", urgencia:"Média", projeto:"", tarefa:"", resp:"", contato:"", status:"Não iniciada", entrega:"", obs:""});
-  saveDemands();
-  renderEdit();
-  showToast("Demanda criada");
-}
-function deleteRow(id){
-  if(!confirm("Remover esta demanda?")) return;
-  demands = demands.filter(x=>x.id!==id);
-  saveDemands();
-  renderEdit();
-  showToast("Removida");
-}
-function resetData(){
-  if(!confirm("Isso vai apagar todas as suas edições neste hub e voltar pra lista original. Continuar?")) return;
-  demands = JSON.parse(JSON.stringify(HUBS[currentHub].seed));
-  nextId = demands.length?Math.max(...demands.map(d=>d.id))+1:1;
-  saveDemands();
-  renderEdit();
-  showToast("Lista restaurada");
-}
-function exportCSV(){
-  const header = "Cliente,Urgência,Projeto,Tarefa,Responsável,Ponto de contato,Status,Entrega,Observações\n";
-  const rows = demands.map(d=>[d.cliente,d.urgencia,d.projeto,d.tarefa,d.resp,d.contato,d.status,d.entrega,d.obs].map(v=>`"${(v||"").toString().replace(/"/g,'""').replace(/\n/g," ")}"`).join(",")).join("\n");
-  const blob = new Blob(["\uFEFF"+header+rows],{type:"text/csv;charset=utf-8;"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = HUBS[currentHub].name.replace(/\s/g,"_")+".csv";
-  a.click();
-}
-
-// ════════ NAV ════════
-function goPage(name,ev){
-  // Carga e Papéis pedem senha de gestão
-  if((name==="carga"||name==="papeis") && !managerUnlocked){
-    openManagerModal(name);
-    return;
-  }
-  document.querySelectorAll("#page-hub .page").forEach(p=>p.classList.remove("active"));
-  document.querySelectorAll("#page-hub .nav-tab").forEach(t=>t.classList.remove("active"));
-  document.getElementById("page-"+name).classList.add("active");
-  // marca a aba correspondente como ativa
-  const tabsMap = {"dash":0,"carga":1,"papeis":2,"editar":3};
-  const tabs = document.querySelectorAll("#page-hub .nav-tab");
-  if(ev && ev.target) ev.target.classList.add("active");
-  else if(tabs[tabsMap[name]]) tabs[tabsMap[name]].classList.add("active");
-  if(name==="dash") renderDash();
-  if(name==="carga") renderCarga();
-  if(name==="papeis") renderPapeis();
-  if(name==="editar") renderEdit();
-}
-
+// ════════════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════════════
 renderLanding();
 </script>
-
 </body>
 </html>
